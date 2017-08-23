@@ -3,7 +3,7 @@
   "scripts": {
   },
   "env": {
-    "CLEARDB_DATABASE_URL": {
+    "JAWSDB_URL": {
       "description": "URL for mysql server",
       "required": true
     },
