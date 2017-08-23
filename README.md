@@ -10,12 +10,19 @@ Users can post:
 
 Users can browse other user’s passes for sale, and filter by those same criteria; buyers can contact sellers by email to discuss the purchase.
 
-## Team
+## V1 Team
 
   - [Cody](https://github.com/cody-unger)
   - [Kelly](https://github.com/whithang)
   - [Martin](https://github.com/mkchang)
   - [Michael](https://github.com/mbntex)
+
+## V2 Team
+
+  - [Daniel](https://github.com/ddarrach314)
+  - [Easak]()
+  - [Ryan]()
+  - [Andrew]()
 
 ## Table of Contents
 
@@ -32,7 +39,9 @@ Users can browse other user’s passes for sale, and filter by those same criter
 ## Usage
 
 ### App
-https://hungryhippopasspass.herokuapp.com/
+  - [v1](https://hungryhippopasspass.herokuapp.com/)
+  - [v2]()
+
 
 ## Requirements
 

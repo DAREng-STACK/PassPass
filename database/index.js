@@ -1,11 +1,11 @@
 var mysql      = require('mysql');
 
 module.exports.connection = mysql.createConnection(
-  process.env.CLEARDB_DATABASE_URL ||
+  process.env.JAWSDB_URL ||
   {
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: 'password',
     database: 'pass_database'
   }
 );
