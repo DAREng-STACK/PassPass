@@ -1,11 +1,11 @@
 var mysql      = require('mysql');
 
 module.exports.connection = mysql.createConnection(
-  process.env.CLEARDB_DATABASE_URL ||
+  process.env.JAWSDB_URL ||
   {
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: 'password',
     database: 'pass_database'
   }
 );
@@ -29,7 +29,7 @@ module.exports.connection._protocol._delegateError = function(err, sequence) {
 
 module.exports.findUser = function(user, callback) {
   var values = [user];
-  module.exports.connection.query('SELECT * FROM USERS WHERE email= ?', values, (error, results, fields) => {
+  module.exports.connection.query('SELECT * FROM users WHERE email= ?', values, (error, results, fields) => {
       if (error || !results) {
         console.log('*********** database find user by email error ', error);
         callback(error);
@@ -45,7 +45,7 @@ module.exports.findUser = function(user, callback) {
 };
 
 module.exports.findUserById = function(id, callback) {
-  module.exports.connection.query('SELECT * FROM USERS WHERE id=' + id, (error, results, fields) => {
+  module.exports.connection.query('SELECT * FROM users WHERE id=' + id, (error, results, fields) => {
       if (error || !results) {
         console.log('*********** database find user by ID error ', error);
         callback(error);
@@ -62,7 +62,7 @@ module.exports.findUserById = function(id, callback) {
 
 module.exports.authUser = function(user, callback) {
   var values = [user.email, user.password + user.salt];
-  module.exports.connection.query('SELECT * FROM USERS WHERE email= ? AND password=SHA2( ? , 0)',
+  module.exports.connection.query('SELECT * FROM users WHERE email= ? AND password=SHA2( ? , 0)',
     values, function (error, results, fields) {
       if (error || !results) {
         console.log('*********** database authenicate user email error ', error);
@@ -116,7 +116,7 @@ module.exports.newUser = function(user, callback) {
 
 module.exports.addUserToSession = function(user, session, callback) {
   var values = [Number(user), session];
-  module.exports.connection.query('UPDATE SESSIONS SET user_id= ? WHERE session_id= ? ',
+  module.exports.connection.query('UPDATE sessions SET user_id= ? WHERE session_id= ? ',
     values, function (error, results, fields) {
       if (error) {
         console.log('*********** database add user to session error ', error);
