@@ -116,7 +116,7 @@ module.exports.newUser = function(user, callback) {
 
 module.exports.addUserToSession = function(user, session, callback) {
   var values = [Number(user), session];
-  module.exports.connection.query('UPDATE SESSIONS SET user_id= ? WHERE session_id= ? ',
+  module.exports.connection.query('UPDATE sessions SET user_id= ? WHERE session_id= ? ',
     values, function (error, results, fields) {
       if (error) {
         console.log('*********** database add user to session error ', error);
