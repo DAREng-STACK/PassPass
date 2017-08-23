@@ -46,6 +46,7 @@ class SignInBox extends React.Component {
         if (data.message) {
           console.log(data.message);
           //push this error message to a popup with more appropriate wording/display
+          window.alert(data.message);
         } else {
           console.log('successful login ', data[0]);
           context.props.login();
