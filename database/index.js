@@ -139,6 +139,18 @@ module.exports.addToPending = function(passId, userId, callback) {
   });
 };
 
+// module.exports.makePassUnavailable = function (id, callback) {
+//   module.exports.connection.query('UPDATE for_sale_block SET passes_sold ="unavailable" WHERE id = ' + id, (error, results, fields) => {
+//     if (error || !results) {
+//       console.log('*********** database find user by ID error ', error);
+//       callback(error);
+//     }
+//     if (results.length > 0) {
+//       console.log('for_sale_block UPDATED!')
+//     }
+//   });
+// }
+
 module.exports.updatePassesAvailable = function (passesSold, id, callback) {
   module.exports.connection.query('UPDATE for_sale_block SET passes_sold = ' + passesSold + ' WHERE id = ' + id , (error, results, fields) => {
     if (error || !results) {
@@ -282,7 +294,7 @@ module.exports.getForSaleBlocks = function(searchQueries, callback) {
                       'INNER JOIN restricted_list ON restricted_studios.exempt_studio_id=restricted_list.id ' +
                       'GROUP BY restricted_studios.block_id) A ' +
                     'ON for_sale_block.id=A.block_id ' +
-                    'WHERE users.id <> ' + searchQueries.ignoreUserId;
+                    'WHERE pass_volume - passes_sold > 0 AND users.id <> ' + searchQueries.ignoreUserId;
   for (var key in searchQueries) {
     if (key === 'priceInput' && searchQueries[key]) {
       queryString += ' AND for_sale_block.current_price < ' + searchQueries[key];
