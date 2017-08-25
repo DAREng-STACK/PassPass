@@ -182,6 +182,12 @@ app.post('/passes/expired', (req, res) => {
   });
 });
 
+app.post ('/passes/pending/change', (req, res) => {
+  database.updatePassesAvailable(req.body.pass, req.body.id, () => {
+    res.sendStatus(200);
+  });
+});
+
 app.post ('/passes/pending/buy', (req, res) => {
   console.log(req.body, '@@###$$$@@##$$$')
   stripeHelpers.createTransferToPassPass(req.body, (err, res) => {

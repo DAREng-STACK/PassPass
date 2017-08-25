@@ -5,7 +5,9 @@ import BuyPassesListItem from './BuyPassesListItem.jsx';
 class BuyPassesList extends React.Component {
 	constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+			// forSaleBlocks = [];
+		};
   }
 
 	addToPending (pass) {
@@ -21,6 +23,28 @@ class BuyPassesList extends React.Component {
 				console.log('error:', error);
 			}
 		});
+
+		let decrementPasses = pass.passes_sold + 1;
+		if (pass.pass_volume - decrementPasses > 0) {
+
+			$.ajax({
+				method: 'POST',
+				url: '/passes/pending/change',
+				contentType: 'application/json',
+				data: JSON.stringify({pass: decrementPasses, id: pass.id}),
+				success: function(result) {
+					console.log(result, 'POST SUCCESS');
+				},
+				error: function(xhr, error) {
+					console.log('error:', error);
+				}
+			});
+
+		} else {
+			//delete this pass from available for sale
+			console.log(pass, 'NOW THERE ARE NO PASSES!')
+		}
+
 	}
 
   render() {

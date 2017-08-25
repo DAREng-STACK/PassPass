@@ -29,7 +29,6 @@ class BuyPasses extends React.Component {
       data: JSON.stringify({searchQueries: searchQueries}),
       success: function(forSaleBlocks) {
         context.updateForSaleBlocks(forSaleBlocks);
-				console.log(forSaleBlocks, 'forSaleBlocks')
       },
       error: function(xhr, error) {
         console.log('error:', error);

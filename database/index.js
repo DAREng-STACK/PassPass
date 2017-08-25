@@ -88,9 +88,6 @@ module.exports.getPendingSellerData = function (userId, callback) {
     if (results.length > 0) {
       console.log(results, 'seller info')
       callback(results);
-    } else {
-      console.log(results, 'no seller info');
-      callback(null, results);
     }
   }
 );
@@ -138,11 +135,20 @@ module.exports.addToPending = function(passId, userId, callback) {
     if (results.length > 0) {
       console.log(results, 'seller info')
       callback(results);
-    } else {
-      console.log(results, 'no seller info');
-      callback(null, results);
     }
-  })
+  });
+};
+
+module.exports.updatePassesAvailable = function (passesSold, id, callback) {
+  module.exports.connection.query('UPDATE for_sale_block SET passes_sold = ' + passesSold + ' WHERE id = ' + id , (error, results, fields) => {
+    if (error || !results) {
+      console.log('*********** database find user by ID error ', error);
+      callback(error);
+    }
+    if (results.length > 0) {
+      console.log('for_sale_block UPDATED!')
+    }
+  });
 }
 
 module.exports.authUser = function(user, callback) {
