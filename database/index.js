@@ -140,7 +140,6 @@ module.exports.addToPending = function(passId, userId, callback) {
 };
 
 module.exports.deletePendingPass = function (id, callback) {
-  console.log('GETTIGN HERE?')
   module.exports.connection.query('DELETE FROM pending_passes where for_sale_block_id = ' + id, (error, results, fields) => {
     if (error || !results) {
       console.log('*********** database find user by ID error ', error);

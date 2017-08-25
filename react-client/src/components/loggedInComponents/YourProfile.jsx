@@ -35,7 +35,6 @@ class YourProfile extends React.Component {
         console.log('error:', error);
       }
     });
-    console.log(pass);
   }
 
   getPendingPasses() {
