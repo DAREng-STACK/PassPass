@@ -2,27 +2,43 @@ import React from 'react';
 
 var PendingPasses = (props) => (
   <div className="profilePending">
-    <li>
-      Pass Start Date: {new Date(props.pass.period_start.slice(0, 10)).toDateString().slice(4)}
-    </li>
-    <li>
-      Pass End Date: {new Date(props.pass.period_end.slice(0, 10)).toDateString().slice(4)}
-    </li>
-    <li>
-      Restricted Gyms:
-    </li>
-    <li>
-    Price: {props.pass.current_price}
-    </li>
-    <li>
-      Passes Available: {props.pass.pass_volume - props.pass.passes_sold}
-    </li>
-    <li>
-      Seller: {props.pass.first_name}
-    </li>
-    <li>
-      Email: {props.pass.email}
-    </li>
+    <ul>
+      <li>
+        Pass Start Date: {new Date(props.pass.period_start.slice(0, 10)).toDateString().slice(4)}
+      </li>
+      <li>
+        Pass End Date: {new Date(props.pass.period_end.slice(0, 10)).toDateString().slice(4)}
+      </li>
+      <li>
+        Restricted Gyms:
+      </li>
+      <li>
+        Price: {props.pass.current_price}
+      </li>
+      <li>
+        Passes Available: {props.pass.pass_volume - props.pass.passes_sold}
+      </li>
+      <li>
+        Seller: {props.pass.first_name}
+      </li>
+      <li>
+        Email: {props.pass.email}
+      </li>
+      <li>
+        <form className="form-Message" onSubmit={(event) => {props.post(event, props.pass.email)}} >
+          <label htmlFor="inputMessage" className="sr-only">message</label>
+          <input
+            onChange={props.update}
+            type="text"
+            id="inputMessage"
+            className="form-control"
+            placeholder="Message" 
+            required
+          />
+          <button className="btn btn-md btn-primary btn-block" type="submit">Send Message</button>
+        </form>
+      </li>
+    </ul>
   </div>
 );
 

@@ -122,7 +122,7 @@ CREATE TABLE transfers (
 )
 
 INSERT INTO users (id, email, password, salt, first_name, last_name, phone, created_at, updated_at, rating, review_count) VALUES
-  (1, 'billy@bob.com', SHA2('billysPasswordcPjfn67sdv', 0), 'cPjfn67sdv', 'Billy', 'Bob', '3332224444', '2017-03-05', '2017-03-09', 4, 4),
+  (1, 'billy@bob.com', SHA2('billysPasswordcPjfn67sdv', 0), 'cPjfn67sdv', 'Billy', 'Bob', '5208184579', '2017-03-05', '2017-03-09', 4, 4),
   (2, 'sally@sal.com', SHA2('sallysPassword8nJHBh665v', 0), '8nJHBh665v', 'Sally', 'Sal', '1112224444', '2017-04-15', NULL,3,10),
   (3, 'david45@gmail.com', SHA2('davidsPasswordvByt76912s', 0), 'vByt76912s', 'David', 'Drummer', '9998887777', '2017-06-09', NULL, 4.5, 20);
 

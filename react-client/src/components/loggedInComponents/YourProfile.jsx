@@ -113,11 +113,11 @@ class YourProfile extends React.Component {
   }
   
 
-  postChatMessage (event) {
+  postChatMessage (event, email) {
     event.preventDefault();
     let message = {
       msgBody: this.state.inputMessage,
-      msgTo: 'billy@bob.com' //refactor to state variable after integration 
+      msgTo: email 
     }
     $.ajax({
       method: 'POST',
@@ -125,10 +125,14 @@ class YourProfile extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify(message),
       success: function(resolve) {
-        console.log('resolve from server ', resolve);
+        //resolve sends back: 'yay! your message has been sent to the seller!'
+        //console.log('resolve from server ', resolve);
+        //call back to client for success
+          //little checkmark or animation to relay success
       },
       error: function(reject) {
         console.log('error:', reject);
+        //graceful error handling needed
       }
     });
   }
@@ -184,7 +188,12 @@ class YourProfile extends React.Component {
             this.state.havePendingPasses &&
               <ul>
                 {this.state.pendingPasses.map((pass, index) =>
-                  <PendingPasses pass={pass} key={index} />
+                  <PendingPasses
+                    pass={pass}
+                    key={index}
+                    post={this.postChatMessage.bind(this)}
+                    update={this.updateMessageState.bind(this)}
+                  />
                 )}
               </ul>
           }
@@ -197,8 +206,4 @@ class YourProfile extends React.Component {
   }
 }
 
-
-
-
 export default YourProfile;
-
