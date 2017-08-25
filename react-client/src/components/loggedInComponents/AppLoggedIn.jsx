@@ -85,7 +85,7 @@ class AppLoggedIn extends React.Component {
             }/>
             <Route path="/buypasses" render={() => (
                 this.props.authenicated ? (
-                  <BuyPasses authenicated={this.props.authenicated}/>
+                  <BuyPasses authenicated={this.props.authenicated} profileData={this.props.profileData}/>
                 ) : (
                   <AppLoggedOut />
                 )

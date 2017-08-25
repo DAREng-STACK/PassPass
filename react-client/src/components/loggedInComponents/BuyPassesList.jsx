@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 import BuyPassesListItem from './BuyPassesListItem.jsx';
 
 class BuyPassesList extends React.Component {
@@ -7,8 +8,19 @@ class BuyPassesList extends React.Component {
     this.state = {};
   }
 
-	addToPending (key) {
-		console.log(key)
+	addToPending (pass) {
+		$.ajax({
+			method: 'POST',
+			url: '/passes/pending/add',
+			contentType: 'application/json',
+			data: JSON.stringify({pass: pass, profileData: this.props.profileData}),
+			success: function(result) {
+				console.log(result, 'POST SUCCESS');
+			},
+			error: function(xhr, error) {
+				console.log('error:', error);
+			}
+		});
 	}
 
   render() {

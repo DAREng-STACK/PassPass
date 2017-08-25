@@ -96,6 +96,22 @@ module.exports.getPendingSellerData = function (userId, callback) {
 );
 }
 
+module.exports.addToPending = function(passId, userId, callback) {
+  module.exports.connection.query('INSERT INTO pending_passes (perspective_buyer_id, for_sale_block_id) VALUES (' + userId + ',' + passId + ')', (error, results, fields) => {
+    if (error || !results) {
+      console.log('*********** database find user by ID error ', error);
+      callback(error);
+    }
+    if (results.length > 0) {
+      console.log(results, 'seller info')
+      callback(results);
+    } else {
+      console.log(results, 'no seller info');
+      callback(null, results);
+    }
+  })
+}
+
 module.exports.authUser = function(user, callback) {
   var values = [user.email, user.password + user.salt];
   module.exports.connection.query('SELECT * FROM users WHERE email= ? AND password=SHA2( ? , 0)',
@@ -201,7 +217,7 @@ module.exports.addRestrictedStudio = function(user, studio, callback) {
 
 module.exports.getForSaleBlocks = function(searchQueries, callback) {
   var queryString = 'SELECT users.email, users.first_name, ' +
-                      'users.rating, for_sale_block.pass_volume, for_sale_block.passes_sold, ' +
+                      'users.rating, for_sale_block.pass_volume, for_sale_block.passes_sold, for_sale_block.id, ' +
                       'for_sale_block.current_price, for_sale_block.period_start, ' +
                       'for_sale_block.period_end, A.studios FROM users ' +
                     'INNER JOIN for_sale_block ON users.id = for_sale_block.seller_id ' +

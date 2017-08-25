@@ -156,8 +156,14 @@ app.post('/passes/pending', (req, res) => {
 app.post('/passes/pending/seller', (req, res) => {
   database.getPendingSellerData(req.body.userId, (result) => {
     res.send(result);
-  })
-})
+  });
+});
+
+app.post ('/passes/pending/add', (req, res) => {
+  database.addToPending(req.body.pass.id, req.body.profileData.id, () => {
+    res.sendStatus(200);
+  });
+});
 
 app.post('/auth/signup', (req, res) => {
   var rememberMe = req.body.rememberMe;
