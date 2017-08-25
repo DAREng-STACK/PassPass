@@ -1,6 +1,6 @@
 import React from 'react';
 
-var PendingPasses = (props) => (
+var CurrentPasses = (props) => (
   <div className="profilePending">
     <li>
       Pass Start Date: {new Date(props.pass.period_start.slice(0, 10)).toDateString().slice(4)}
@@ -45,4 +45,4 @@ var PendingPasses = (props) => (
 
 
 
-export default PendingPasses;
+export default CurrentPasses;

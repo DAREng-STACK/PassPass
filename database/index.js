@@ -139,17 +139,17 @@ module.exports.addToPending = function(passId, userId, callback) {
   });
 };
 
-// module.exports.makePassUnavailable = function (id, callback) {
-//   module.exports.connection.query('UPDATE for_sale_block SET passes_sold ="unavailable" WHERE id = ' + id, (error, results, fields) => {
-//     if (error || !results) {
-//       console.log('*********** database find user by ID error ', error);
-//       callback(error);
-//     }
-//     if (results.length > 0) {
-//       console.log('for_sale_block UPDATED!')
-//     }
-//   });
-// }
+module.exports.deletePendingPass = function (id, callback) {
+  console.log('GETTIGN HERE?')
+  module.exports.connection.query('DELETE FROM pending_passes where for_sale_block_id = ' + id, (error, results, fields) => {
+    if (error || !results) {
+      console.log('*********** database find user by ID error ', error);
+      callback(error);
+    } else {
+      console.log('pass deleted from pending_passes!')
+    }
+  });
+}
 
 module.exports.updatePassesAvailable = function (passesSold, id, callback) {
   module.exports.connection.query('UPDATE for_sale_block SET passes_sold = ' + passesSold + ' WHERE id = ' + id , (error, results, fields) => {

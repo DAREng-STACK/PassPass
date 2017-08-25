@@ -71,11 +71,7 @@ class BuyPasses extends React.Component {
     return (
       <div className="buyPasses">
         <BuyPassesSearch handleSearch={this.handleSearch.bind(this)}/>
-<<<<<<< aa379c85a1f14dea9d486b2ed78a3ab143204559
-			  <BuyPassesList profileData={this.props.profileData} forSaleBlocks={this.state.forSaleBlocks} searchState={this.state.search}/>
-=======
 			<BuyPassesList addToPending={this.addToPending.bind(this)} profileData={this.props.profileData} forSaleBlocks={this.state.forSaleBlocks} searchState={this.state.search}/>
->>>>>>> passes with no more availability are removed from Passes Available for Sale
       </div>
     )
   }

@@ -164,12 +164,7 @@ app.post('/passes/pending/seller', (req, res) => {
   });
 });
 
-<<<<<<< aa379c85a1f14dea9d486b2ed78a3ab143204559
-app.post ('/passes/pending/add', (req, res) => {
-  console.log(req.body, '@@###$$$@@##$$$')
-=======
 app.post('/passes/pending/add', (req, res) => {
->>>>>>> passes with no more availability are removed from Passes Available for Sale
   database.addToPending(req.body.pass.id, req.body.profileData.id, () => {
     res.sendStatus(200);
   })
@@ -192,7 +187,6 @@ app.post('/passes/pending/change', (req, res) => {
   });
 });
 
-<<<<<<< aa379c85a1f14dea9d486b2ed78a3ab143204559
 app.post ('/passes/pending/buy', (req, res) => {
   console.log(req.body, '@@###$$$@@##$$$')
   stripeHelpers.createTransferToPassPass(req.body, (err, res) => {
@@ -203,14 +197,6 @@ app.post ('/passes/pending/buy', (req, res) => {
     console.log(res)
   });
 });
-=======
-// app.post('/passes/pending/unavailable', (req, res) => {
-//   database.makePassUnavailable(req.body.id, () => {
-//     res.sendStatus(200);
-//   });
-// });
-
->>>>>>> passes with no more availability are removed from Passes Available for Sale
 
 app.post('/auth/signup', (req, res) => {
   var rememberMe = req.body.rememberMe;

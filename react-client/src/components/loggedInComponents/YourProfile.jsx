@@ -22,6 +22,22 @@ class YourProfile extends React.Component {
     this.getExpiredPasses();
   }
 
+  deletePendingPass(pass) {
+    $.ajax({
+      method: 'POST',
+      url: '/passes/delete',
+      contentType: 'application/json',
+      data: JSON.stringify({id: pass.id}),
+      success: function(results) {
+				console.log(results, 'SUCCESS');
+      },
+      error: function(xhr, error) {
+        console.log('error:', error);
+      }
+    });
+    console.log(pass);
+  }
+
   getPendingPasses() {
     var context = this;
     $.ajax({
@@ -48,8 +64,7 @@ class YourProfile extends React.Component {
         if (pendingSellerData.length === 0) {
           console.log(pendingSellerData, 'NULLLL')
         } else {
-          console.log(pendingSellerData, 'CONSOLELOG')
-            let i = 0;
+          let i = 0;
             pendingSellerData.map((seller) => {
               this.state.pendingPasses[i].first_name = seller.first_name;
               this.state.pendingPasses[i].email = seller.email;
@@ -58,7 +73,6 @@ class YourProfile extends React.Component {
             this.setState({
               pendingPasses: this.state.pendingPasses
             })
-            console.log(this.state.pendingPasses, 'DID IT WORK??')
           }
         }.bind(this),
           error: function(error) {
@@ -157,7 +171,7 @@ class YourProfile extends React.Component {
             this.state.havePendingPasses &&
               <ul>
                 {this.state.pendingPasses.map((pass, index) =>
-                  <PendingPasses pass={pass} key={index} />
+                  <PendingPasses deletePendingPass={this.deletePendingPass.bind(this)} pass={pass} key={index} />
                 )}
               </ul>
           }
