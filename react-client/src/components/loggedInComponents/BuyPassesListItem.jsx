@@ -2,6 +2,7 @@ import React from 'react';
 
 const BuyPassesListItem = (props) => {
 	var restricted;
+	// let boundClick = this.{props.addToPending}.bind(this, {props.forSaleBlock});
 	if (props.forSaleBlock.studios && props.forSaleBlock.studios !== 'none') {
 		restricted = <div className="buyPassesListItemInfo">
 									<b>No Passes Available For:</b><div className="restrict">{props.forSaleBlock.studios.replace(',', ', ')}</div>
@@ -20,6 +21,7 @@ const BuyPassesListItem = (props) => {
 					<div className="buyPassesListItemInfo"><b>Sale Period:</b><div className="buyPassesListItemInfoContent">{new Date(props.forSaleBlock.period_start.slice(0, 10)).toDateString().slice(4) + ' through ' + new Date(props.forSaleBlock.period_end.slice(0, 10)).toDateString().slice(4)}</div></div>
 					{restricted}
 				</div>
+				<input type="submit" value="Submit" className="addToPendingButton" onClick={props.addToPending.bind(this, props.forSaleBlock)}/>
 			</div>
 			<div className="row">
 				<div className="col-sm">

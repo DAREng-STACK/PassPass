@@ -12,6 +12,7 @@ class BuyPasses extends React.Component {
     };
   }
 
+
   updateForSaleBlocks(forSaleBlocks) {
     var newState = Object.assign({}, this.state);
     newState.forSaleBlocks = forSaleBlocks;
@@ -44,7 +45,7 @@ class BuyPasses extends React.Component {
     return (
       <div className="buyPasses">
         <BuyPassesSearch handleSearch={this.handleSearch.bind(this)}/>
-        <BuyPassesList forSaleBlocks={this.state.forSaleBlocks} searchState={this.state.search}/>
+				<BuyPassesList  forSaleBlocks={this.state.forSaleBlocks} searchState={this.state.search}/>
       </div>
     )
   }

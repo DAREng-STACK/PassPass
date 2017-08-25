@@ -7,6 +7,10 @@ class BuyPassesList extends React.Component {
     this.state = {};
   }
 
+	addToPending (key) {
+		console.log(key)
+	}
+
   render() {
     var heading = <h2></h2>;
     if (this.props.forSaleBlocks) {
@@ -22,7 +26,7 @@ class BuyPassesList extends React.Component {
           {heading}
         </div>
     		{this.props.forSaleBlocks.map((forSaleBlock, key) => (
-    			<BuyPassesListItem forSaleBlock={forSaleBlock} key={key}/>
+    			<BuyPassesListItem addToPending={this.addToPending.bind(this)} forSaleBlock={forSaleBlock} key={key}/>
     		))}
     	</div>
     );
