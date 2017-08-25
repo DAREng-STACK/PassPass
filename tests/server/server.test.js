@@ -2,14 +2,9 @@ var request = require('supertest');
 var express = require('express');
 var server = require('../../server/index.js')
 var path = require('path');
-<<<<<<< 7cdce392e263ae0ad7f34db4d37603fad6566827
 var server = require('../../server/index');
 var db = require('../../database/index');
 var superReq = supertest.agent(server);
-=======
-
->>>>>>> clean logs and refactor client side in prep for integration
-
 
 
 xdescribe('Server', function() {
