@@ -1,10 +1,18 @@
-var supertest = require('supertest');
+var request = require('supertest');
+var express = require('express');
+var server = require('../../server/index.js')
 var path = require('path');
+<<<<<<< 7cdce392e263ae0ad7f34db4d37603fad6566827
 var server = require('../../server/index');
 var db = require('../../database/index');
 var superReq = supertest.agent(server);
+=======
 
-describe('Server', function() {
+>>>>>>> clean logs and refactor client side in prep for integration
+
+
+
+xdescribe('Server', function() {
   describe('GET Static Files', () => {
     test('should return the content of index.html', (done) => {
 
@@ -120,5 +128,20 @@ describe('Server', function() {
           done(err);
         });
     });
+  });
+
+});
+
+describe('Twilio integration', function() {
+  var msg = {
+    msgBody: 'stuff',
+    msgTo: 'billy@bob.com'
+  };
+  test('does a thing in jest', (done) => {
+    request(server)
+      .post('/chat')
+      .send(msg)
+      .expect(res.status).toBe(635)
+      .end(done);
   });
 });

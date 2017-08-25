@@ -44,6 +44,7 @@
     "react-stripe-checkout": "^2.6.3",
     "stripe": "^4.24.0",
     "supertest": "^3.0.0",
+    "twilio": "^3.6.3",
     "webpack": "^2.7.0"
   },
   "devDependencies": {

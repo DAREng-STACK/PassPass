@@ -234,7 +234,6 @@ module.exports.addSale = function(forSaleBlock, restrictedStudios, callback) {
 
   module.exports.connection.query('INSERT INTO for_sale_block SET ?', forSaleBlock, function(err, results) {
     const blockId = results.insertId;
-    // let error;
     if (restrictedStudios.length > 0 && !err) {
       module.exports.connection.query(`SELECT id FROM restricted_list WHERE user_id=${forSaleBlock.seller_id} AND studio IN ("${restrictedStudios.join('", "')}")`, function(err, results) {
         if (err) {

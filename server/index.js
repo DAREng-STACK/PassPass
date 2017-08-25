@@ -12,6 +12,7 @@ var stripeHelpers = require('./middleware/transactionHelpers.js');
 var stripe = require('stripe')(
   "sk_test_J9JR0cXKMJL61WGB8O0CWgfG"
 );
+var twilio = require('./twilioModule');
 
 var session_secret;
 var fb;
@@ -388,8 +389,24 @@ app.post('/review/search', (req, res) => {
 });
 
 app.post('/chat', (req, res) => {
-  //integrate with twilio API
-  // TBD
+  let message = req.body;
+    //message.msgBody is a string representing the text the buyeer wants to sent to seller
+    //message.msgTo is expected to be the sellers email initially
+  //db lookup of user record by email
+  database.findUser(message.msgTo, (err, user) => {
+    //grab sellers user record from their email
+    if(err) {
+      res.status(500).send('Woops! Something went wrong here! Try purchasing a different pass');
+    } else {
+      //on positive lookup update message object with the users phone number
+      message.msgTo = user[0].phone;
+      //send message object and callback to twilio module
+      twilio.twilioMessage(message, () => {
+        //callback for twilio module passing the response object
+        res.status(201).send('yay! your message has been sent to the seller!');
+      });
+    }
+  })
 });
 
 app.get('/*', (req, res) => {

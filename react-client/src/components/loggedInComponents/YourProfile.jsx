@@ -22,6 +22,12 @@ class YourProfile extends React.Component {
     this.getExpiredPasses();
   }
 
+  updateMessageState(event) {
+  	var newState = this.state;
+  	newState[event.target.id] = event.target.value;
+    this.setState(newState);
+  }
+
   getPendingPasses() {
     var context = this;
     $.ajax({
@@ -105,6 +111,27 @@ class YourProfile extends React.Component {
       }
     });
   }
+  
+
+  postChatMessage (event) {
+    event.preventDefault();
+    let message = {
+      msgBody: this.state.inputMessage,
+      msgTo: 'billy@bob.com' //refactor to state variable after integration 
+    }
+    $.ajax({
+      method: 'POST',
+      url: '/chat',
+      contentType: 'application/json',
+      data: JSON.stringify(message),
+      success: function(resolve) {
+        console.log('resolve from server ', resolve);
+      },
+      error: function(reject) {
+        console.log('error:', reject);
+      }
+    });
+  }
 
   render() {
     return (
@@ -174,3 +201,4 @@ class YourProfile extends React.Component {
 
 
 export default YourProfile;
+
