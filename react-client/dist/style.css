@@ -201,7 +201,7 @@ input[type=number] {
 	/*border: 1px solid black;*/
 	float: right;
 	margin-right: 30px;
-	height: 100px
+	height: 100px;
 }
 
 .profileQuote {
@@ -213,15 +213,20 @@ input[type=number] {
 }
 
 .profilePending {
-	margin-bottom: 20px;
+	position: relative;
+	float: right;
+	padding: 5px;
+	margin: 20px;
+	/*padding-top: 10px;
+	padding-bottom: 10px;*/
 	background: rgb(64,224,208);
 	border-radius: 10px;
+	width: 550px
 }
 
-ul {
-  list-style-type: none;
+.checkout {
 }
 
-.addToPendingButton {
-	float: bottom;
+ul{
+	list-style-type: none;
 }

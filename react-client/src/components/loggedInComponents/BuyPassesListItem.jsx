@@ -1,4 +1,5 @@
 import React from 'react';
+import Checkout from './Checkout.jsx'
 
 const BuyPassesListItem = (props) => {
 	var restricted;
@@ -27,7 +28,7 @@ const BuyPassesListItem = (props) => {
 				<div className="col-sm">
 					<div className="buyPassesListItemInfo"><b>Passes Available:</b><div className="buyPassesListItemInfoContent">{props.forSaleBlock.pass_volume - props.forSaleBlock.passes_sold}</div></div>
 					<div className="buyPassesListItemInfo"><b>Pass Price:</b><div className="buyPassesListItemInfoContent">${props.forSaleBlock.current_price.toFixed(2)}</div></div>
-				</div>
+			</div>
 				<div className="col-sm">
 				</div>
 			</div>

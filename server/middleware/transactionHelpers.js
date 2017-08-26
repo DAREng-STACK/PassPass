@@ -5,34 +5,51 @@ var stripe = require('stripe')(
 
 module.exports.createTransferToPassPass = (data, callback) => {
   console.log(data, '234234');
-  var passInfo = data.pass;
-  var profileData = data.profileData;
+  var amount = data.amount * 100;
 
-  var amount = passInfo.current_price * 100;
-  var merchantAcct = db.getMerchantAcctNum(passInfo.email);
-  stripe.charges.create({
-    amount: 100,
-    currency: "usd",
-    source: "tok_visa",
-    destination: {
-      amount: amount,
-      account: "sk_test_J9JR0cXKMJL61WGB8O0CWgfG",
-    },
-  }).then(
-    function (charge) {
-      console.log('promise activates')
-      stripe.transfers.create ( {
+  db.getMerchantAcctNum(data.email, (err, res) => {
+    console.log(res)
+    if(err){
+      callback(err, null)
+    }else{
+      stripe.charges.create({
         amount: amount,
         currency: "usd",
-        destination: merchantAcct,
+        source: data.source,
+        destination: {
+          amount: amount,
+          account: res,
+        },
+        transfer_group: '' + data.passId + ''
+      }, function (err, res) {
+        if(err){
+          callback(err, null)
+        }else{
+          callback(null, res)
+        }
+      })
 
-    }, function (err, transfer) {
-      if(err) {
-        callback(err, null);
-      }
-      callback(null, transfer);
-    });
+    }
+    // .then(
+    //   function (charge) {
+    //     console.log(charge.destination, 'promise activates')
+    //     stripe.transfers.create ( {
+    //       amount: amount,
+    //       currency: "usd",
+    //       destination: charge.destination,
+    //
+    //     }, function (err, transfer) {
+    //       if(err) {
+    //         callback(err, null);
+    //       }
+    //       callback(null, transfer);
+    //     });
+    //   })
+    //
+    // })
+
   })
+
 
 }
 

@@ -183,6 +183,7 @@ class YourProfile extends React.Component {
 
           }
         </ul>
+        <div className="col-sm-6">
         <ul className="profileList">
           <strong>Pending Passes</strong>
           {
@@ -206,6 +207,7 @@ class YourProfile extends React.Component {
               </ul>
           }
         </ul>
+      </div>
       </div>
     )
   }

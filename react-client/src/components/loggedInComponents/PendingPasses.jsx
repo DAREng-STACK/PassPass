@@ -1,45 +1,58 @@
 import React from 'react';
+import Checkout from './Checkout.jsx';
 
 var PendingPasses = (props) => (
+
   <div className="profilePending">
-    <ul>
-      <li>
-        Pass Start Date: {new Date(props.pass.period_start.slice(0, 10)).toDateString().slice(4)}
-      </li>
-      <li>
-        Pass End Date: {new Date(props.pass.period_end.slice(0, 10)).toDateString().slice(4)}
-      </li>
-      <li>
-        Restricted Gyms:
-      </li>
-      <li>
-        Price: {props.pass.current_price}
-      </li>
-      <li>
-        Passes Available: {props.pass.pass_volume - props.pass.passes_sold}
-      </li>
-      <li>
-        Seller: {props.pass.first_name}
-      </li>
-      <li>
-        Email: {props.pass.email}
-      </li>
-      <input type="submit" value="Delete" className="deleteFromPendingButton" onClick={props.deletePendingPass.bind(this, props.pass)}/>
-      <li>
-        <form className="form-Message" onSubmit={(event) => {props.post(event, props.pass.email)}} >
-          <label htmlFor="inputMessage" className="sr-only">message</label>
-          <input
-            onChange={props.update}
-            type="text"
-            id="inputMessage"
-            className="form-control"
-            placeholder="Message"
-            required
-          />
-          <button className="btn btn-md btn-primary btn-block" type="submit">Send Message</button>
-        </form>
-      </li>
-    </ul>
+    <row>
+    <div className="col-xs-6">
+      <ul>
+        <li>
+          Pass Start Date: {new Date(props.pass.period_start.slice(0, 10)).toDateString().slice(4)}
+        </li>
+        <li>
+          Pass End Date: {new Date(props.pass.period_end.slice(0, 10)).toDateString().slice(4)}
+        </li>
+        <li>
+          Restricted Gyms:
+        </li>
+        <li>
+          Price: {props.pass.current_price}
+        </li>
+        <li>
+          Passes Available: {props.pass.pass_volume - props.pass.passes_sold}
+        </li>
+        <li>
+          Seller: {props.pass.first_name}
+        </li>
+        <li>
+          Email: {props.pass.email}
+        </li>
+      </ul>
+    </div>
+    <div className="col-xs-6">
+      <ul>
+        <li>
+          <form className="form-Message" onSubmit={(event) => {props.post(event, props.pass.email)}} >
+            <label htmlFor="inputMessage" className="sr-only">message</label>
+            <input
+              onChange={props.update}
+              type="text"
+              id="inputMessage"
+              className="form-control"
+              placeholder="Message"
+              required
+              />
+            <button className="btn btn-md btn-primary btn-block" type="submit">Send Message</button>
+          </form>
+        </li>
+        <li className="checkout">
+          <Checkout stuff={props} />  <input type="submit" value="Delete" className="deleteFromPendingButton" onClick={props.deletePendingPass.bind(this, props.pass)}/>
+        </li>
+      </ul>
+    </div>
+  </row>
+
   </div>
 );
 

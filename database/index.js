@@ -128,6 +128,11 @@ module.exports.updatePassesAvailable = function (passesSold, id, callback) {
     }
   });
 }
+//
+module.exports.switchFromPendingtoBought = function(data) {
+  console.log(data)
+  module.exports.connection.query('UPDATE pending_passes SET purchased = true WHERE for_sale_block_id=' + data + ';')
+}
 
 module.exports.authUser = function(user, callback) {
   var values = [user.email, user.password + user.salt];
@@ -166,13 +171,15 @@ module.exports.newMerchantAcct = function(userId, acctNumber){
   module.exports.connection.query(`UPDATE users SET merchant_id = "${acctNumber}" where id = ${userId}`)
 }
 
-module.exports.getMerchantAcctNum = function(email) {
+module.exports.getMerchantAcctNum = function(email, cb) {
   var querystring = `SELECT merchant_id FROM users WHERE email="${email}";`;
   module.exports.connection.query(querystring, (err, res) => {
-    if (err || res === null) {
+    console.log(res, err, '123456543')
+    if (err) {
       console.log('error getting merchid')
+      cb(err, null)
     }
-    return res;
+    cb(null, res[0].merchant_id);
   });
 }
 
