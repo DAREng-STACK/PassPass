@@ -101,7 +101,6 @@ class YourProfile extends React.Component {
   }
 
   deletePendingPass(pass) {
-    console.log(pass)
     let context = this;
     $.ajax({
       method: 'POST',

@@ -12,8 +12,9 @@ class BuyPasses extends React.Component {
     };
   }
 
-
 	addToPending (pass) {
+		console.log(pass, "PASSSSSSS")
+		var context = this;
 		$.ajax({
 			method: 'POST',
 			url: '/passes/pending/add',
@@ -35,6 +36,11 @@ class BuyPasses extends React.Component {
 			data: JSON.stringify({pass: decrementPasses, id: pass.id}),
 			success: function(result) {
 				console.log(result, 'POST SUCCESS');
+				console.log(context.state, 'STATEEEE')
+				var newAvailable = context.state.forSaleBlocks.filter(function(pass1){
+          return pass1.id !== pass.id
+        });
+        context.setState({forSaleBlocks: newAvailable})
 			},
 			error: function(xhr, error) {
 				console.log('error:', error);

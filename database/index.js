@@ -113,19 +113,21 @@ module.exports.deletePendingPass = function (id, userId, callback) {
       callback(error, null);
     } else {
       console.log('pass deleted from pending_passes!')
-      callback(null, results)
+      callback(null, results);
     }
   });
 }
 
 module.exports.updatePassesAvailable = function (passesSold, id, callback) {
-  module.exports.connection.query('UPDATE for_sale_block SET passes_sold = ' + passesSold + ' WHERE id = ' + id , (error, results, fields) => {
-    if (error || !results) {
+  module.exports.connection.query('UPDATE for_sale_block SET passes_sold = ' + passesSold + ' WHERE id = ' + id , (error, results) => {
+    if (error) {
       console.log('*********** database find user by ID error ', error);
-      callback(error);
-    }
-    if (results.length > 0) {
-      console.log('for_sale_block UPDATED!')
+      callback(error, null);
+    } else {
+    // if (results.length > 0) {
+    //   console.log('for_sale_block UPDATED!')
+      callback(null, results);
+    // }
     }
   });
 }

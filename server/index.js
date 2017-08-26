@@ -174,8 +174,11 @@ app.post('/passes/pending/add', (req, res) => {
 
 
 app.post('/passes/pending/change', (req, res) => {
-  database.updatePassesAvailable(req.body.pass, req.body.id, () => {
-    res.sendStatus(200);
+  database.updatePassesAvailable(req.body.pass, req.body.id, (err, result) => {
+    if(err) {
+      console.log('error in change');
+    }
+    res.send('succes');
   });
 });
 
@@ -184,7 +187,6 @@ app.post('/passes/delete', (req, res) => {
     if(err){
       console.log('error in delete')
     }
-    console.log(res)
     res.send('success');
   });
 });
