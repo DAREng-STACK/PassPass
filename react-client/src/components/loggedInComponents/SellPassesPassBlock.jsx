@@ -224,10 +224,9 @@ class SellPassesPassBlock extends React.Component {
             </div>
           </div>
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-sm-9" > </div>
+            <div className="col-sm-3">
               <button className="editSaleButton btn btn-md btn-primary btn-block" type="button" onClick={this.editPost.bind(this)}>Edit This Post</button>
-            </div>
-            <div className="col-md-9">
             </div>
           </div>
         </div>
