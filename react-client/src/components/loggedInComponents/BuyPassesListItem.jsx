@@ -22,7 +22,7 @@ const BuyPassesListItem = (props) => {
 					<div className="buyPassesListItemInfo"><b>Sale Period:</b><div className="buyPassesListItemInfoContent">{new Date(props.forSaleBlock.period_start.slice(0, 10)).toDateString().slice(4) + ' through ' + new Date(props.forSaleBlock.period_end.slice(0, 10)).toDateString().slice(4)}</div></div>
 					{restricted}
 				</div>
-				<input type="submit" value="Submit" className="addToPendingButton" onClick={props.addToPending.bind(this, props.forSaleBlock)}/>
+				<input type="submit" value="Add to Pending" className="addToPendingButton" onClick={props.addToPending.bind(this, props.forSaleBlock)}/>
 			</div>
 			<div className="row">
 				<div className="col-sm">

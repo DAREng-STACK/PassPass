@@ -36,10 +36,17 @@ class BuyPasses extends React.Component {
 			data: JSON.stringify({pass: decrementPasses, id: pass.id}),
 			success: function(result) {
 				console.log(result, 'POST SUCCESS');
-				console.log(context.state, 'STATEEEE')
-				var newAvailable = context.state.forSaleBlocks.filter(function(pass1){
-          return pass1.id !== pass.id
+				console.log(pass.pass_volume - pass.passes_sold, 'PASSID');
+				var availableArr = context.state.forSaleBlocks;
+				var newAvailable = availableArr.filter(function(pass1){
+          return pass1.id !== pass.id;
         });
+				if (pass.pass_volume - pass.passes_sold > 1) {
+					pass.passes_sold++;
+					newAvailable.push(pass);
+					context.setState({forSaleBlocks: newAvailable})
+
+				}
         context.setState({forSaleBlocks: newAvailable})
 			},
 			error: function(xhr, error) {
