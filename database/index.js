@@ -5,7 +5,7 @@ module.exports.connection = mysql.createConnection(
   {
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'root',
     database: 'pass_database'
   }
 );
@@ -92,39 +92,6 @@ module.exports.getPendingSellerData = function (userId, callback) {
   }
 );
 }
-module.exports.getAvailablePasses = function(userId, callback) {
-  var queryString = 'SELECT * FROM sold_passes WHERE CURDATE() < expiration_date && buyer_id = ' + userId;
-  module.exports.connection.query(queryString, (err, results) => {
-    if (err) {
-      console.log('@@@@@@@@@ AVAILABLE PASSES ERROR ', err);
-      throw err;
-    }
-    if (results.length > 0) {
-      console.log(results, '@@@@@@@@ THERE ARE AVAILABLE PASSES');
-      callback(results);
-    } else {
-      console.log(results, '@@@@@@@@ THERE ARE NO AVAILABLE PASSES');
-      callback(results);
-    }
-  });
-};
-
-module.exports.getExpiredPasses = function(userId, callback) {
-  var queryString = 'SELECT * FROM sold_passes WHERE CURDATE() > expiration_date && buyer_id = ' + userId;
-  module.exports.connection.query(queryString, (err, results) => {
-    if (err) {
-      console.log('######## EXPIRED PASSES ERROR ', err);
-      throw err;
-    }
-    if (results.length > 0) {
-      console.log(results, '########## THERE ARE EXPIRED PASSES');
-      callback(results);
-    } else {
-      console.log(results, '######## NO EXPIRED PASSES');
-      callback(results);
-    }
-  });
-};
 
 module.exports.addToPending = function(passId, userId, callback) {
   module.exports.connection.query('INSERT INTO pending_passes (perspective_buyer_id, for_sale_block_id, purchased) VALUES (' + userId + ',' + passId + ', false)', (error, results, fields) => {

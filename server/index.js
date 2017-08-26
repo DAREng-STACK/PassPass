@@ -152,7 +152,7 @@ app.post('/auth/email', (req, res, next) => {
   })(req, res, next);
 });
 
-app.post('/passes/pending', (req, res) => {
+app.post('/passes/all', (req, res) => {
   database.getPendingPasses(req.body.userId, (result) => {
     res.send(result);
   });
@@ -169,17 +169,8 @@ app.post('/passes/pending/add', (req, res) => {
     res.sendStatus(200);
   })
 })
-app.post('/passes/available', (req, res) => {
-  database.getAvailablePasses(req.body.userId, (result) => {
-    res.send(result);
-  });
-});
 
-app.post('/passes/expired', (req, res) => {
-  database.getExpiredPasses(req.body.userId, (result) => {
-    res.send(result);
-  });
-});
+
 
 app.post('/passes/pending/change', (req, res) => {
   database.updatePassesAvailable(req.body.pass, req.body.id, () => {
