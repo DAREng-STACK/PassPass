@@ -187,6 +187,13 @@ app.post('/passes/pending/change', (req, res) => {
   });
 });
 
+app.post('/passes/delete', (req, res) => {
+  database.deletePendingPass(req.body.id, () => {
+    res.sendStatus(200);
+  });
+});
+
+
 app.post ('/passes/pending/buy', (req, res) => {
   console.log(req.body, '@@###$$$@@##$$$')
   stripeHelpers.createTransferToPassPass(req.body, (err, res) => {

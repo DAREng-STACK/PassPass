@@ -9,11 +9,9 @@ class YourProfile extends React.Component {
       userId: this.props.profileData.id,
       havePendingPasses: false,
       pendingPasses: [],
-      haveAvailablePasses: false,
-      availablePasses: [],
-      haveExpiredPasses: false,
-      expiredPasses: []
-    }
+      havePurchasedPasses: false,
+      purchasedPasses: []
+    };
   }
 
   componentWillMount () {
@@ -31,6 +29,25 @@ class YourProfile extends React.Component {
       success: function(results) {
 				console.log(results, 'SUCCESS');
       },
+      error: function(xhr, error) {
+        console.log('error:', error);
+      }
+    });
+    console.log(pass)
+  }
+
+  getUserPurchasedPasses() {
+   $.ajax({
+      method: 'POST',
+      url: '/passes/purchased',
+      contentType: 'application/json',
+      data: JSON.stringify({userId: this.state.userId}),
+      success: function(purchasedPasses) {
+				if (purchasedPasses.length === 0) {
+        } else {
+          this.setState({havePurchasedPasses: true, purchasedPasses: purchasedPasses})
+        }
+      }.bind(this),
       error: function(xhr, error) {
         console.log('error:', error);
       }

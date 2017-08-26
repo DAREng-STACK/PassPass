@@ -85,6 +85,18 @@ CREATE TABLE for_sale_block (
   FOREIGN KEY (seller_id) REFERENCES users(id)
 );
 
+CREATE TABLE sold_passes (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    seller_id int,
+    buyer_id int,
+    notes VARCHAR(255),
+    sell_date DATE,
+    for_sale_block_id int,
+    FOREIGN KEY (seller_id) REFERENCES users(id),
+    FOREIGN KEY (buyer_id) REFERENCES users(id),
+    FOREIGN KEY (for_sale_block_id) REFERENCES for_sale_block(id)
+  );
+
 CREATE TABLE restricted_list (
     id int PRIMARY KEY AUTO_INCREMENT,
     studio VARCHAR(100),
@@ -103,6 +115,7 @@ CREATE TABLE pending_passes (
   id int PRIMARY KEY AUTO_INCREMENT,
   perspective_buyer_id int,
   for_sale_block_id int,
+  purchased VARCHAR(20),
   FOREIGN KEY (perspective_buyer_id) REFERENCES users(id),
   FOREIGN KEY (for_sale_block_id) REFERENCES for_sale_block(id)
 );
@@ -117,9 +130,8 @@ CREATE TABLE payment_options (
 );
 
 CREATE TABLE transfers (
-  id int PRIMARY KEY AUTO_INCREMENT,
-
-)
+  id int PRIMARY KEY AUTO_INCREMENT
+);
 
 INSERT INTO users (id, email, password, salt, first_name, last_name, phone, created_at, updated_at, rating, review_count) VALUES
   (1, 'billy@bob.com', SHA2('billysPasswordcPjfn67sdv', 0), 'cPjfn67sdv', 'Billy', 'Bob', '3332224444', '2017-03-05', '2017-03-09', 4, 4),
@@ -143,9 +155,15 @@ INSERT INTO messages (sender_id, reciever_id, time_sent, text) VALUES
   (1, 2, '2017-05-06 11:13:40', 'Absolutely!'),
   (3, 2, '2017-02-05 15:40:01', 'I\'d like to buy passes from you.');
 
+<<<<<<< 59a26092a8edc2e722c59fbb6e2bf17477e18572
 INSERT INTO sold_passes (seller_id, buyer_id, notes, sell_date, expiration_date) VALUES
   (1, 2, 'Easy to work with', '2017-02-05', '2017-02-26'),
   (3, 2, NULL, '2017-07-12', '2017-07-26');
+=======
+INSERT INTO sold_passes (seller_id, buyer_id, notes, sell_date, for_sale_block_id) VALUES
+  (1, 2, 'Easy to work with', '2017-02-05', 2),
+  (3, 2, NULL, '2017-07-12', 1);
+>>>>>>> add purchased field to pending_passes table
 
 INSERT INTO restricted_list (id, studio, for_sale_block_id) VALUES
   (1, 'C.C. Cycling', 2),
