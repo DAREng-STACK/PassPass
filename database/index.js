@@ -5,7 +5,7 @@ module.exports.connection = mysql.createConnection(
   {
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'root',
     database: 'pass_database'
   }
 );
@@ -88,49 +88,13 @@ module.exports.getPendingSellerData = function (userId, callback) {
     if (results.length > 0) {
       console.log(results, 'seller info')
       callback(results);
-    } else {
-      console.log(results, 'no seller info');
-      callback(null, results);
     }
   }
 );
 }
-module.exports.getAvailablePasses = function(userId, callback) {
-  var queryString = 'SELECT * FROM sold_passes WHERE CURDATE() < expiration_date && buyer_id = ' + userId;
-  module.exports.connection.query(queryString, (err, results) => {
-    if (err) {
-      console.log('@@@@@@@@@ AVAILABLE PASSES ERROR ', err);
-      throw err;
-    }
-    if (results.length > 0) {
-      console.log(results, '@@@@@@@@ THERE ARE AVAILABLE PASSES');
-      callback(results);
-    } else {
-      console.log(results, '@@@@@@@@ THERE ARE NO AVAILABLE PASSES');
-      callback(results);
-    }
-  });
-};
-
-module.exports.getExpiredPasses = function(userId, callback) {
-  var queryString = 'SELECT * FROM sold_passes WHERE CURDATE() > expiration_date && buyer_id = ' + userId;
-  module.exports.connection.query(queryString, (err, results) => {
-    if (err) {
-      console.log('######## EXPIRED PASSES ERROR ', err);
-      throw err;
-    }
-    if (results.length > 0) {
-      console.log(results, '########## THERE ARE EXPIRED PASSES');
-      callback(results);
-    } else {
-      console.log(results, '######## NO EXPIRED PASSES');
-      callback(results);
-    }
-  });
-};
 
 module.exports.addToPending = function(passId, userId, callback) {
-  module.exports.connection.query('INSERT INTO pending_passes (perspective_buyer_id, for_sale_block_id) VALUES (' + userId + ',' + passId + ')', (error, results, fields) => {
+  module.exports.connection.query('INSERT INTO pending_passes (perspective_buyer_id, for_sale_block_id, purchased) VALUES (' + userId + ',' + passId + ', false)', (error, results, fields) => {
     if (error || !results) {
       console.log('*********** database find user by ID error ', error);
       callback(error);
@@ -138,11 +102,31 @@ module.exports.addToPending = function(passId, userId, callback) {
     if (results.length > 0) {
       console.log(results, 'seller info')
       callback(results);
-    } else {
-      console.log(results, 'no seller info');
-      callback(null, results);
     }
-  })
+  });
+};
+
+module.exports.deletePendingPass = function (id, callback) {
+  module.exports.connection.query('DELETE FROM pending_passes where for_sale_block_id = ' + id, (error, results, fields) => {
+    if (error || !results) {
+      console.log('*********** database find user by ID error ', error);
+      callback(error);
+    } else {
+      console.log('pass deleted from pending_passes!')
+    }
+  });
+}
+
+module.exports.updatePassesAvailable = function (passesSold, id, callback) {
+  module.exports.connection.query('UPDATE for_sale_block SET passes_sold = ' + passesSold + ' WHERE id = ' + id , (error, results, fields) => {
+    if (error || !results) {
+      console.log('*********** database find user by ID error ', error);
+      callback(error);
+    }
+    if (results.length > 0) {
+      console.log('for_sale_block UPDATED!')
+    }
+  });
 }
 
 module.exports.authUser = function(user, callback) {
@@ -276,7 +260,7 @@ module.exports.getForSaleBlocks = function(searchQueries, callback) {
                       'INNER JOIN restricted_list ON restricted_studios.exempt_studio_id=restricted_list.id ' +
                       'GROUP BY restricted_studios.block_id) A ' +
                     'ON for_sale_block.id=A.block_id ' +
-                    'WHERE users.id <> ' + searchQueries.ignoreUserId;
+                    'WHERE pass_volume - passes_sold > 0 AND users.id <> ' + searchQueries.ignoreUserId;
   for (var key in searchQueries) {
     if (key === 'priceInput' && searchQueries[key]) {
       queryString += ' AND for_sale_block.current_price < ' + searchQueries[key];

@@ -13,6 +13,35 @@ class BuyPasses extends React.Component {
   }
 
 
+	addToPending (pass) {
+		$.ajax({
+			method: 'POST',
+			url: '/passes/pending/add',
+			contentType: 'application/json',
+			data: JSON.stringify({pass: pass, profileData: this.props.profileData}),
+			success: function(result) {
+				console.log(result, 'POST SUCCESS');
+			},
+			error: function(xhr, error) {
+				console.log('error:', error);
+			}
+		});
+
+		let decrementPasses = pass.passes_sold + 1;
+		$.ajax({
+			method: 'POST',
+			url: '/passes/pending/change',
+			contentType: 'application/json',
+			data: JSON.stringify({pass: decrementPasses, id: pass.id}),
+			success: function(result) {
+				console.log(result, 'POST SUCCESS');
+			},
+			error: function(xhr, error) {
+				console.log('error:', error);
+			}
+		});
+	}
+
   updateForSaleBlocks(forSaleBlocks) {
     var newState = Object.assign({}, this.state);
     newState.forSaleBlocks = forSaleBlocks;
@@ -29,7 +58,6 @@ class BuyPasses extends React.Component {
       data: JSON.stringify({searchQueries: searchQueries}),
       success: function(forSaleBlocks) {
         context.updateForSaleBlocks(forSaleBlocks);
-				console.log(forSaleBlocks, 'forSaleBlocks')
       },
       error: function(xhr, error) {
         console.log('error:', error);
@@ -37,15 +65,13 @@ class BuyPasses extends React.Component {
     });
   }
 
-  componentDidMount() {
-    // this.handleSearch({});
-  }
+
 
   render () {
     return (
       <div className="buyPasses">
         <BuyPassesSearch handleSearch={this.handleSearch.bind(this)}/>
-			  <BuyPassesList profileData={this.props.profileData} forSaleBlocks={this.state.forSaleBlocks} searchState={this.state.search}/>
+			<BuyPassesList addToPending={this.addToPending.bind(this)} profileData={this.props.profileData} forSaleBlocks={this.state.forSaleBlocks} searchState={this.state.search}/>
       </div>
     )
   }

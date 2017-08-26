@@ -9,27 +9,43 @@ class YourProfile extends React.Component {
       userId: this.props.profileData.id,
       havePendingPasses: false,
       pendingPasses: [],
-      haveAvailablePasses: false,
-      availablePasses: [],
+      haveCurrentlyAvailablePasses: false,
+      currentlyAvailablePasses: [],
       haveExpiredPasses: false,
       expiredPasses: []
-    }
+    };
   }
 
   componentWillMount () {
-    this.getPendingPasses();
-    this.getAvailablePasses();
-    this.getExpiredPasses();
+    this.getAllPasses();
   }
 
-  getPendingPasses() {
-    var context = this;
+  deletePendingPass(pass) {
     $.ajax({
       method: 'POST',
-      url: '/passes/pending',
+      url: '/passes/delete',
+      contentType: 'application/json',
+      data: JSON.stringify({id: pass.id}),
+      success: function(results) {
+				console.log(results, 'SUCCESS');
+      },
+      error: function(xhr, error) {
+        console.log('error:', error);
+      }
+    });
+    console.log(pass)
+  }
+
+
+
+  getAllPasses() {
+    $.ajax({
+      method: 'POST',
+      url: '/passes/all',
       contentType: 'application/json',
       data: JSON.stringify({userId: this.state.userId}),
       success: function(pendingPasses) {
+        console.log(pendingPasses, "PENDINGDPASSES")
 				if (pendingPasses.length === 0) {
         } else {
           this.setState({havePendingPasses: true, pendingPasses: pendingPasses})
@@ -48,8 +64,7 @@ class YourProfile extends React.Component {
         if (pendingSellerData.length === 0) {
           console.log(pendingSellerData, 'NULLLL')
         } else {
-          console.log(pendingSellerData, 'CONSOLELOG')
-            let i = 0;
+          let i = 0;
             pendingSellerData.map((seller) => {
               this.state.pendingPasses[i].first_name = seller.first_name;
               this.state.pendingPasses[i].email = seller.email;
@@ -58,7 +73,6 @@ class YourProfile extends React.Component {
             this.setState({
               pendingPasses: this.state.pendingPasses
             })
-            console.log(this.state.pendingPasses, 'DID IT WORK??')
           }
         }.bind(this),
           error: function(error) {
@@ -67,44 +81,7 @@ class YourProfile extends React.Component {
     });
   }
 
-  getAvailablePasses() {
-    $.ajax({
-      method: 'POST',
-      url: '/passes/available',
-      contentType: 'application/json',
-      data: JSON.stringify({userId: this.state.userId}),
-      success: function(availablePasses) {
-        if (availablePasses.length === 0) {
-          console.log(availablePasses, '@@@@@@@ NO AVAILABLE');
-        } else {
-          this.setState({haveAvailablePasses: true})
-        }
-      }.bind(this),
-      error: function(err) {
-        console.log(err, '###### ERROR')
-      }
-    });
-  }
 
-  getExpiredPasses() {
-    $.ajax({
-      method: 'POST',
-      url: '/passes/expired',
-      contentType: 'application/json',
-      data: JSON.stringify({userId: this.state.userId}),
-      success: function(expiredPasses) {
-        if (expiredPasses.length === 0) {
-          console.log(expiredPasses, '@@@@@@@ NO EXPIRED');
-        } else {
-          console.log(expiredPasses, '@@@@@@@ YES EXPIRED');
-          this.setState({haveExpiredPasses: true})
-        }
-      }.bind(this),
-      error: function(err) {
-        console.log(err, '####### ERROR');
-      }
-    });
-  }
 
   render() {
     return (
@@ -157,14 +134,11 @@ class YourProfile extends React.Component {
             this.state.havePendingPasses &&
               <ul>
                 {this.state.pendingPasses.map((pass, index) =>
-                  <PendingPasses pass={pass} key={index} />
+                  <PendingPasses deletePendingPass={this.deletePendingPass.bind(this)} pass={pass} key={index} />
                 )}
               </ul>
           }
         </ul>
-        <div className="profileQuote">
-          Workout Quote
-        </div>
       </div>
     )
   }
