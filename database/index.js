@@ -106,13 +106,14 @@ module.exports.addToPending = function(passId, userId, callback) {
   });
 };
 
-module.exports.deletePendingPass = function (id, callback) {
-  module.exports.connection.query('DELETE FROM pending_passes where for_sale_block_id = ' + id, (error, results, fields) => {
-    if (error || !results) {
+module.exports.deletePendingPass = function (id, userId, callback) {
+  module.exports.connection.query('DELETE FROM pending_passes WHERE for_sale_block_id = ' + id + ' AND perspective_buyer_id = ' + userId, (error, results) => {
+    if (error) {
       console.log('*********** database find user by ID error ', error);
-      callback(error);
+      callback(error, null);
     } else {
       console.log('pass deleted from pending_passes!')
+      callback(null, results)
     }
   });
 }

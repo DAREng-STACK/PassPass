@@ -23,20 +23,6 @@ class YourProfile extends React.Component {
     this.getAllPasses();
   }
 
-  deletePendingPass(pass) {
-    $.ajax({
-      method: 'POST',
-      url: '/passes/delete',
-      contentType: 'application/json',
-      data: JSON.stringify({id: pass.id}),
-      success: function(results) {
-				console.log(results, 'SUCCESS');
-      },
-      error: function(xhr, error) {
-        console.log('error:', error);
-      }
-    });
-  }
 
   updateMessageState(event) {
   	var newState = this.state;
@@ -75,10 +61,13 @@ class YourProfile extends React.Component {
             allPasses: this.state.allPasses
           })
           console.log(this.state.allPasses)
+          var tempPending = [];
+          var tempCurrAvail = [];
+          var tempExp = [];
           for (var j = 0; j < this.state.allPasses.length; j++) {
             var pass = this.state.allPasses[j];
             if (pass.purchased === 'false') {
-              this.state.pendingPasses.push(pass);
+              tempPending.push(pass);
               this.setState({
                 havePendingPasses: true
               })
@@ -87,18 +76,23 @@ class YourProfile extends React.Component {
               var expirationDate = new Date(pass.period_end);
               console.log(currentDate, "current", expirationDate, "expirationDate")
               if (expirationDate > currentDate) {
-                this.state.currentlyAvailablePasses.push(pass);
+                tempCurrAvail.push(pass);
                 this.setState({
                   haveCurrentlyAvailablePasses: true
                 })
               } else {
-                this.state.expiredPasses.push(pass);
+                tempExp.push(pass);
                 this.setState({
                   haveExpiredPasses: true
                 })
               }
             }
           }
+          this.setState({
+            pendingPasses: tempPending,
+            currentlyAvailablePasses: tempCurrAvail,
+            expiredPasses: tempExp
+          })
         }.bind(this),
           error: function(error) {
           console.log('error:', error);
@@ -106,6 +100,30 @@ class YourProfile extends React.Component {
     });
   }
 
+  deletePendingPass(pass) {
+    console.log(pass)
+    let context = this;
+    $.ajax({
+      method: 'POST',
+      url: '/passes/delete',
+      contentType: 'application/json',
+      data: JSON.stringify({id: pass.id, userId: this.state.userId}),
+      success: function(results) {
+        var newPending = context.state.pendingPasses.filter(function(pass1){
+          return pass1.id !== pass.id
+        });
+        context.setState({pendingPasses: newPending})
+        if (context.state.pendingPasses.length === 0) {
+          context.setState({
+            havePendingPasses: false
+          })
+        }
+      },
+      error: function(error) {
+        throw error;
+      }
+    });
+  }
 
 
 

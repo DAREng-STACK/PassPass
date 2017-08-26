@@ -180,8 +180,12 @@ app.post('/passes/pending/change', (req, res) => {
 });
 
 app.post('/passes/delete', (req, res) => {
-  database.deletePendingPass(req.body.id, () => {
-    res.sendStatus(200);
+  database.deletePendingPass(req.body.id, req.body.userId, (err, result) => {
+    if(err){
+      console.log('error in delete')
+    }
+    console.log(res)
+    res.send('success');
   });
 });
 
