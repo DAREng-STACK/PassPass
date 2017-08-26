@@ -165,6 +165,12 @@ app.post('/passes/pending/seller', (req, res) => {
   });
 });
 
+app.post('/passes/restricted', (req, res) => {
+  database.getAllRestrictedStudios((result) => {
+    res.send(result);
+  })
+})
+
 app.post('/passes/pending/add', (req, res) => {
   database.addToPending(req.body.pass.id, req.body.profileData.id, () => {
     res.sendStatus(200);

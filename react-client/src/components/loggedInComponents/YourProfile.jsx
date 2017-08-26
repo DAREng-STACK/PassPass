@@ -15,7 +15,8 @@ class YourProfile extends React.Component {
       haveCurrentlyAvailablePasses: false,
       currentlyAvailablePasses: [],
       haveExpiredPasses: false,
-      expiredPasses: []
+      expiredPasses: [],
+      restrictedStudios: []
     };
   }
 
@@ -38,7 +39,6 @@ class YourProfile extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({userId: this.state.userId}),
       success: function(allPasses) {
-        // console.log(allPasses, "PENDINGDPASS")
         this.setState({allPasses: allPasses})
       }.bind(this),
       error: function(error) {
@@ -46,6 +46,21 @@ class YourProfile extends React.Component {
       }
     });
     $.ajax({
+      method: 'POST',
+      url: '/passes/restricted',
+      contentType: 'application/json',
+      data: JSON.stringify({userId: this.state.userId}),
+      success: function(restrictedStudios) {
+        this.setState({
+          restrictedStudios: restrictedStudios
+        })
+      }.bind(this),
+      error: function(error) {
+        console.log('error:', error);
+      }
+    });
+    $.ajax({
+      // var context = this;
       method: 'POST',
       url: '/passes/pending/seller',
       contentType: 'application/json',
@@ -55,12 +70,23 @@ class YourProfile extends React.Component {
           pendingSellerData.map((seller) => {
             this.state.allPasses[i].first_name = seller.first_name;
             this.state.allPasses[i].email = seller.email;
+            this.state.allPasses[i].restrictedStudios = [];
             i++;
           })
           this.setState({
             allPasses: this.state.allPasses
           })
-          console.log(this.state.allPasses)
+          var passes = this.state.allPasses;
+          for (var t = 0; t < passes.length; t++) {
+            for (var e = 0; e < this.state.restrictedStudios.length; e++) {
+              if (passes[t].id === this.state.restrictedStudios[e].for_sale_block_id) {
+                passes[t].restrictedStudios.push(this.state.restrictedStudios[e].studio);
+              }
+            }
+          }
+          this.setState({
+            allPasses: passes
+          })
           var tempPending = [];
           var tempCurrAvail = [];
           var tempExp = [];
