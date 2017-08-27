@@ -71,11 +71,11 @@ smallest {
 }
 
 .buyPasses {
-	padding-top: 76px;
+	padding-top: 10px;
 }
 @media (max-width: 991px) {
 	.buyPasses {
-		padding-top: 98px;
+		padding-top: 15px;
 	}
 }
 
@@ -145,20 +145,20 @@ input[type=number] {
 }
 
 .sellPasses {
-	padding-top: 76px;
+	padding-top: 10px;
 }
 @media (max-width: 991px) {
 	.sellPasses {
-		padding-top: 98px;
+		padding-top: 15px;
 	}
 }
 
 .interactionsRow {
-	padding-top: 76px;
+	padding-top: 10px;
 }
 @media (max-width: 991px) {
 	.interactionsRow {
-		padding-top: 98px;
+		padding-top: 15px;
 	}
 }
 .sellPassesPassBlock {
@@ -184,12 +184,12 @@ input[type=number] {
 
 .interactionsContainer {
 	width: 17em;
-  padding-top: 86px;
+  padding-top: 50px;
   text-align: center;
 }
 
 .sellPassesList {
-	padding-top: 80px;
+	padding-top: 10px;
 }
 
 .editbutton {
@@ -197,14 +197,14 @@ input[type=number] {
 	padding: 10px, 30px;
 }
 .about {
-	padding-top: 76px;
+	padding-top: 10px;
 	text-align: center;
 	justify-content: center;
 }
 
 .profileHeader {
 	float: top;
-	margin: 50px;
+	margin: 25px;
 }
 
 .profilePicture {
@@ -263,9 +263,8 @@ input[type=number] {
 	padding-left: 10px;
 
 }
-.checkout {
-}
 
 ul{
 	list-style-type: none;
 }
+
