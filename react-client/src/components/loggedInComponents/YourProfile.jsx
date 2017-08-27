@@ -181,27 +181,6 @@ class YourProfile extends React.Component {
         <h2 className="profileHeader">
           Welcome to PassPass, {this.props.profileData.first_name}!
         </h2>
-        <br></br>
-      <div className="profileList">
-          <strong>Expired Passes</strong>
-          {
-            !this.state.haveExpiredPasses &&
-              <li>
-                You don't have any expired passes!
-              </li>
-          }
-          {
-            this.state.haveExpiredPasses &&
-            <ul>
-              {this.state.expiredPasses.map((pass, index) =>
-                <ExpiredPasses
-                  pass={pass}
-                  key={index}
-                />
-              )}
-            </ul>
-          }
-        </div>
         <div className="container-fluid" >
           <div className="col-sm-4">
             <div className='pendingcont'>
