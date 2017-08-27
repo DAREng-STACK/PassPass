@@ -22,6 +22,18 @@
     "SESSION_SECRET": {
       "description": "For server session auth",
       "required": true
+    },
+    "TWILIO_TOKEN": {
+      "description": "Twilio Token",
+      "required": true
+    },
+    "TWILIO_SID": {
+      "description": "Twilio accountSID",
+      "required": true
+    },
+    "STRIPE_AUTH": {
+      "description": "Strip token",
+      "required": true
     }
   },
   "formation": {
