@@ -5,7 +5,7 @@ var stripe = require('stripe')(
 
 module.exports.createTransferToPassPass = (data, callback) => {
   console.log(data, '234234');
-  var amount = data.amount * 100;
+  var amount = data.amount;
 
   db.getMerchantAcctNum(data.email, (err, res) => {
     console.log(res)
