@@ -60,7 +60,6 @@ class YourProfile extends React.Component {
       }
     });
     $.ajax({
-      // var context = this;
       method: 'POST',
       url: '/passes/pending/seller',
       contentType: 'application/json',
@@ -100,7 +99,6 @@ class YourProfile extends React.Component {
             } else {
               var currentDate = new Date();
               var expirationDate = new Date(pass.period_end);
-              console.log(currentDate, "current", expirationDate, "expirationDate")
               if (expirationDate > currentDate) {
                 tempCurrAvail.push(pass);
                 this.setState({
@@ -179,12 +177,30 @@ class YourProfile extends React.Component {
   render() {
     return (
       <div className="about" >
-
-        <div>
-          {/* <div className="profilePicture">PROFILE PICTURE MAYBE</div> */}
-          <h2 className="profileHeader">
-            Welcome to PassPass, {this.props.profileData.first_name}!
-          </h2>
+        <br></br>
+        <h2 className="profileHeader">
+          Welcome to PassPass, {this.props.profileData.first_name}!
+        </h2>
+        <br></br>
+      <div className="profileList">
+          <strong>Expired Passes</strong>
+          {
+            !this.state.haveExpiredPasses &&
+              <li>
+                You don't have any expired passes!
+              </li>
+          }
+          {
+            this.state.haveExpiredPasses &&
+            <ul>
+              {this.state.expiredPasses.map((pass, index) =>
+                <ExpiredPasses
+                  pass={pass}
+                  key={index}
+                />
+              )}
+            </ul>
+          }
         </div>
         <div className="container-fluid" >
           <div className="col-sm-4">

@@ -11,17 +11,17 @@ var ExpiredPasses = (props) => (
       Pass End Date: {new Date(props.pass.period_end.slice(0, 10)).toDateString().slice(4)}
     </li>
     {props.pass.restrictedStudios.length > 0 &&
-     <li>
-       {props.pass.restrictedStudios.map((gym, index) =>
-         <RestrictedGyms gym={gym} key={index}/>
-       )}
-     </li>
+      <li>
+        {props.pass.restrictedStudios.map((gym, index) =>
+          <RestrictedGyms gym={gym} key={index}/>
+        )}
+      </li>
      }
      {props.pass.restrictedStudios.length === 0 &&
-      <li>
-        Restricted Gyms: No Restricted Gyms
-      </li>
-    }
+       <li>
+         Restricted Gyms: No Restricted Gyms
+       </li>
+     }
     <li>
     Price: {props.pass.current_price}
     </li>

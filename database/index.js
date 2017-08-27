@@ -122,10 +122,7 @@ module.exports.updatePassesAvailable = function (passesSold, id, callback) {
       console.log('*********** database find user by ID error ', error);
       callback(error, null);
     } else {
-    // if (results.length > 0) {
-    //   console.log('for_sale_block UPDATED!')
       callback(null, results);
-    // }
     }
   });
 }
