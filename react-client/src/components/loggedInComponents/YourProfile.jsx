@@ -136,78 +136,95 @@ class YourProfile extends React.Component {
   render() {
     return (
       <div className="about" >
-        <br></br>
-        {/* <div className="profilePicture">PROFILE PICTURE MAYBE</div> */}
-        <h2 className="profileHeader">
-          Welcome to PassPass, {this.props.profileData.first_name}!
-        </h2>
-        <br></br>
-      <div className="profileList">
-          <strong>Expired Passes</strong>
-          {
-            !this.state.haveExpiredPasses &&
-              <li>
-                You don't have any expired passes!
-              </li>
-          }
-          {
-            this.state.haveExpiredPasses &&
-            <ul>
-              {this.state.expiredPasses.map((pass, index) =>
-                <ExpiredPasses
-                  pass={pass}
-                  key={index}
-                />
-              )}
-            </ul>
-          }
-        </div>
-        <ul className="profileList">
-          <strong>Currently Available Passes</strong>
-          {
-            !this.state.haveCurrentlyAvailablePasses &&
-              <li>
-                You don't have any available passes.
-              </li>
-          }
-          {
-            this.state.haveCurrentlyAvailablePasses &&
-            <ul>
-              {this.state.currentlyAvailablePasses.map((pass, index) =>
-                <CurrentPasses
-                  pass={pass}
-                  key={index}
-                />
-              )}
-            </ul>
 
-          }
-        </ul>
-        <div className="col-sm-6">
-        <ul className="profileList">
-          <strong>Pending Passes</strong>
-          {
-            !this.state.havePendingPasses &&
-              <li>
-                You don't have any pending passes.
-              </li>
-          }
-          {
-            this.state.havePendingPasses &&
-              <ul>
-                {this.state.pendingPasses.map((pass, index) =>
-                  <PendingPasses
-                    pass={pass}
-                    key={index}
-                    post={this.postChatMessage.bind(this)}
-                    update={this.updateMessageState.bind(this)}
-                    deletePendingPass={this.deletePendingPass.bind(this)}
-                  />
-                )}
+        <div>
+          {/* <div className="profilePicture">PROFILE PICTURE MAYBE</div> */}
+          <h2 className="profileHeader">
+            Welcome to PassPass, {this.props.profileData.first_name}!
+          </h2>
+        </div>
+        <div className="container-fluid" >
+          <div className="col-sm-4">
+            <div className='pendingcont'>
+              <div className='conttitle'>
+                <strong>Pending Passes</strong>
+              </div>
+              <ul className="profileList">
+                {
+                  !this.state.havePendingPasses &&
+                    <li>
+                      You don't have any pending passes.
+                    </li>
+                }
+                {
+                  this.state.havePendingPasses &&
+                    <ul>
+                      {this.state.pendingPasses.map((pass, index) =>
+                        <PendingPasses
+                          pass={pass}
+                          key={index}
+                          post={this.postChatMessage.bind(this)}
+                          update={this.updateMessageState.bind(this)}
+                          deletePendingPass={this.deletePendingPass.bind(this)}
+                        />
+                      )}
+                    </ul>
+                }
               </ul>
-          }
-        </ul>
-      </div>
+            </div>
+          </div>
+
+
+          <div className="col-sm-4">
+            <div className="pendingcont">
+              <ul className="profileList">
+              <strong>Currently Available Passes</strong>
+              {
+                !this.state.haveCurrentlyAvailablePasses &&
+                  <li>
+                    You don't have any available passes.
+                  </li>
+              }
+              {
+                this.state.haveCurrentlyAvailablePasses &&
+                <ul>
+                  {this.state.currentlyAvailablePasses.map((pass, index) =>
+                    <CurrentPasses
+                      pass={pass}
+                      key={index}
+                    />
+                  )}
+                </ul>
+
+              }
+            </ul>
+            </div>
+          </div>
+
+          <div className="col-sm-4">
+            <ul className="profileList">
+              <strong>Expired Passes</strong>
+              {
+                !this.state.haveExpiredPasses &&
+                  <li>
+                    You don't have any expired passes!
+                  </li>
+              }
+              {
+                this.state.haveExpiredPasses &&
+                <ul>
+                  {this.state.expiredPasses.map((pass, index) =>
+                    <ExpiredPasses
+                      pass={pass}
+                      key={index}
+                    />
+                  )}
+                </ul>
+              }
+            </ul>
+          </div>
+        </div>
+
       </div>
     )
   }

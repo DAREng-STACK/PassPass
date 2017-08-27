@@ -30,32 +30,8 @@ module.exports.createTransferToPassPass = (data, callback) => {
       })
 
     }
-    // .then(
-    //   function (charge) {
-    //     console.log(charge.destination, 'promise activates')
-    //     stripe.transfers.create ( {
-    //       amount: amount,
-    //       currency: "usd",
-    //       destination: charge.destination,
-    //
-    //     }, function (err, transfer) {
-    //       if(err) {
-    //         callback(err, null);
-    //       }
-    //       callback(null, transfer);
-    //     });
-    //   })
-    //
-    // })
 
   })
 
 
 }
-
-
-// module.exports.getTransactions = (userId) => {
-//   stripe.accounts.retreive(userId, (err, account) => {
-//
-//   })
-// }

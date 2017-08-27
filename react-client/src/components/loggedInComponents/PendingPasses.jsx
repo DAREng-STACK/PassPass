@@ -4,29 +4,28 @@ import Checkout from './Checkout.jsx';
 var PendingPasses = (props) => (
 
   <div className="profilePending">
-    <row>
     <div className="col-xs-6">
       <ul>
         <li>
-          Pass Start Date: {new Date(props.pass.period_start.slice(0, 10)).toDateString().slice(4)}
+          <strong>Pass Start:</strong> Date: {new Date(props.pass.period_start.slice(0, 10)).toDateString().slice(4)}
         </li>
         <li>
-          Pass End Date: {new Date(props.pass.period_end.slice(0, 10)).toDateString().slice(4)}
+          <strong>Pass End:</strong> Date: {new Date(props.pass.period_end.slice(0, 10)).toDateString().slice(4)}
         </li>
         <li>
-          Restricted Gyms:
+          <strong>Restricted Gyms:</strong>
         </li>
         <li>
-          Price: {props.pass.current_price}
+          <strong>Price:</strong> {props.pass.current_price}
         </li>
         <li>
-          Passes Available: {props.pass.pass_volume - props.pass.passes_sold}
+          <strong>Passes Available:</strong> {props.pass.pass_volume - props.pass.passes_sold}
         </li>
         <li>
-          Seller: {props.pass.first_name}
+          <strong>Seller:</strong> {props.pass.first_name}
         </li>
         <li>
-          Email: {props.pass.email}
+          <strong>Email:</strong> {props.pass.email}
         </li>
       </ul>
     </div>
@@ -51,7 +50,6 @@ var PendingPasses = (props) => (
         </li>
       </ul>
     </div>
-  </row>
 
   </div>
 );

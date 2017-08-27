@@ -131,7 +131,13 @@ module.exports.updatePassesAvailable = function (passesSold, id, callback) {
 //
 module.exports.switchFromPendingtoBought = function(data) {
   console.log(data)
-  module.exports.connection.query('UPDATE pending_passes SET purchased = true WHERE for_sale_block_id=' + data + ';')
+  module.exports.connection.query('UPDATE pending_passes SET purchased = "true" WHERE for_sale_block_id=' + data + ';', (err, results) =>{
+    if(err){
+      console.log(err, 'ERERERERRROR')
+    }else{
+      console.log(results, '1234567890123456789')
+    }
+  })
 }
 
 module.exports.authUser = function(user, callback) {
