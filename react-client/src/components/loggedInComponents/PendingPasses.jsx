@@ -26,7 +26,7 @@ var PendingPasses = (props) => (
         </li>
       }
         <li>
-          <strong>Price:</strong> {props.pass.current_price}
+          Price: ${props.pass.current_price.toFixed(2)}
         </li>
         <li>
           <strong>Passes Available:</strong> {props.pass.pass_volume - props.pass.passes_sold}
