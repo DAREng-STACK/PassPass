@@ -41,6 +41,7 @@ smallest {
 	background-color: #40e0d0; */
 	padding: .5em 13vw .5em 13vw;
 	box-shadow: 1px 4px 5px 0px #3A3738;
+	position: sticky;
 }
 
 .navbar-toggler {
@@ -127,6 +128,9 @@ input[type=number] {
 	border-bottom: thin solid #40e0d0;
 	padding: 1em 0 1em 0;
 }
+.buyPassesListItem:hover {
+	background: #defff7;
+}
 
 .buyPassesListItemInfo {
 	display: flex;
@@ -164,6 +168,9 @@ input[type=number] {
 .sellPassesPassBlock {
 	border-bottom: thin solid #40e0d0;
 	padding: 1em 0 1em 0;
+}
+.sellPassesPassBlock:hover {
+	background: #defff7;
 }
 
 .sellPassesPassBlockInfo {
@@ -237,6 +244,22 @@ input[type=number] {
 
 .profilePending {
 	float: right;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin: 20px;
+	/*padding-top: 10px;
+	padding-bottom: 10px;*/
+	/*background: rgb(64,224,208);*/
+	border-radius: 10px;
+	box-shadow: 1px 3px 4px 0px #3A3738;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#40e0d0),to(#36BFB0));
+	background-image: -webkit-linear-gradient(top, #40e0d0 0%,#36BFB0 100%);
+	background-image: -o-linear-gradient(top, #40e0d0 0%,#36BFB0 100%);
+	background-image: linear-gradient(to bottom, #40E0CF 0%,#36BFB0 100%);
+}
+
+.profileexpired {
+	float: center;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	margin: 20px;

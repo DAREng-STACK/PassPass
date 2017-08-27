@@ -3,7 +3,7 @@ import RestrictedGyms from './RestrictedGyms.jsx';
 
 
 var ExpiredPasses = (props) => (
-  <div className="profilePending">
+  <div className="profileexpired">
     <li>
       Pass Start Date: {new Date(props.pass.period_start.slice(0, 10)).toDateString().slice(4)}
     </li>
