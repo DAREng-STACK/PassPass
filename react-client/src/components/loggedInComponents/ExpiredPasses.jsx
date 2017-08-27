@@ -1,4 +1,6 @@
 import React from 'react';
+import RestrictedGyms from './RestrictedGyms.jsx';
+
 
 var ExpiredPasses = (props) => (
   <div className="profilePending">
@@ -8,9 +10,18 @@ var ExpiredPasses = (props) => (
     <li>
       Pass End Date: {new Date(props.pass.period_end.slice(0, 10)).toDateString().slice(4)}
     </li>
-    <li>
-      Restricted Gyms:
-    </li>
+    {props.pass.restrictedStudios.length > 0 &&
+      <li>
+        {props.pass.restrictedStudios.map((gym, index) =>
+          <RestrictedGyms gym={gym} key={index}/>
+        )}
+      </li>
+     }
+     {props.pass.restrictedStudios.length === 0 &&
+       <li>
+         Restricted Gyms: No Restricted Gyms
+       </li>
+     }
     <li>
     Price: {props.pass.current_price}
     </li>

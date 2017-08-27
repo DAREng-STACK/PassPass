@@ -165,6 +165,12 @@ app.post('/passes/pending/seller', (req, res) => {
   });
 });
 
+app.post('/passes/restricted', (req, res) => {
+  database.getAllRestrictedStudios((result) => {
+    res.send(result);
+  })
+})
+
 app.post('/passes/pending/add', (req, res) => {
   database.addToPending(req.body.pass.id, req.body.profileData.id, () => {
     res.sendStatus(200);
@@ -174,14 +180,20 @@ app.post('/passes/pending/add', (req, res) => {
 
 
 app.post('/passes/pending/change', (req, res) => {
-  database.updatePassesAvailable(req.body.pass, req.body.id, () => {
-    res.sendStatus(200);
+  database.updatePassesAvailable(req.body.pass, req.body.id, (err, result) => {
+    if(err) {
+      console.log('error in change');
+    }
+    res.send('succes');
   });
 });
 
 app.post('/passes/delete', (req, res) => {
-  database.deletePendingPass(req.body.id, () => {
-    res.sendStatus(200);
+  database.deletePendingPass(req.body.id, req.body.userId, (err, result) => {
+    if(err){
+      console.log('error in delete')
+    }
+    res.send('success');
   });
 });
 

@@ -63,20 +63,19 @@ module.exports.findUserById = function(id, callback) {
 
 
 module.exports.getPendingPasses = function(userId, callback) {
-    module.exports.connection.query('SELECT * FROM pending_passes JOIN for_sale_block ON for_sale_block_id WHERE for_sale_block_id = for_sale_block.id AND perspective_buyer_id =' + userId, (error, results, fields) => {
-      if (error || !results) {
-        console.log('*********** database find user by ID error ', error);
-        callback(error);
-      }
-      if (results.length > 0) {
-        console.log(results, 'there are bought and sold_passes')
-        callback(results);
-      } else {
-        console.log(results, 'Id is ok, but there are no bought passes');
-        callback(null, results);
-      }
+  module.exports.connection.query('SELECT * FROM pending_passes JOIN for_sale_block ON for_sale_block_id WHERE for_sale_block_id = for_sale_block.id AND perspective_buyer_id =' + userId, (error, results, fields) => {
+    if (error || !results) {
+      console.log('*********** database find user by ID error ', error);
+      callback(error);
     }
-  );
+    if (results.length > 0) {
+      console.log(results, 'there are bought and sold_passes')
+      callback(results);
+    } else {
+      console.log(results, 'Id is ok, but there are no bought passes');
+      callback(null, results);
+    }
+  });
 }
 
 module.exports.getPendingSellerData = function (userId, callback) {
@@ -89,8 +88,7 @@ module.exports.getPendingSellerData = function (userId, callback) {
       console.log(results, 'seller info')
       callback(results);
     }
-  }
-);
+  });
 }
 
 module.exports.addToPending = function(passId, userId, callback) {
@@ -106,25 +104,25 @@ module.exports.addToPending = function(passId, userId, callback) {
   });
 };
 
-module.exports.deletePendingPass = function (id, callback) {
-  module.exports.connection.query('DELETE FROM pending_passes where for_sale_block_id = ' + id, (error, results, fields) => {
-    if (error || !results) {
+module.exports.deletePendingPass = function (id, userId, callback) {
+  module.exports.connection.query('DELETE FROM pending_passes WHERE for_sale_block_id = ' + id + ' AND perspective_buyer_id = ' + userId, (error, results) => {
+    if (error) {
       console.log('*********** database find user by ID error ', error);
-      callback(error);
+      callback(error, null);
     } else {
       console.log('pass deleted from pending_passes!')
+      callback(null, results);
     }
   });
 }
 
 module.exports.updatePassesAvailable = function (passesSold, id, callback) {
-  module.exports.connection.query('UPDATE for_sale_block SET passes_sold = ' + passesSold + ' WHERE id = ' + id , (error, results, fields) => {
-    if (error || !results) {
+  module.exports.connection.query('UPDATE for_sale_block SET passes_sold = ' + passesSold + ' WHERE id = ' + id , (error, results) => {
+    if (error) {
       console.log('*********** database find user by ID error ', error);
-      callback(error);
-    }
-    if (results.length > 0) {
-      console.log('for_sale_block UPDATED!')
+      callback(error, null);
+    } else {
+      callback(null, results);
     }
   });
 }
@@ -247,6 +245,17 @@ module.exports.addSale = function(forSaleBlock, restrictedStudios, callback) {
     }
   });
 };
+
+module.exports.getAllRestrictedStudios = function(callback) {
+  module.exports.connection.query('SELECT * FROM restricted_list', (error, results, fields) => {
+    if (error || !results) {
+      console.log('*********** database find user by ID error ', error);
+      callback(error);
+    } else {
+      callback(results);
+    }
+  });
+}
 
 module.exports.getRestrictedStudios = function(user, callback) {
   module.exports.connection.query(`SELECT id, studio FROM restricted_list WHERE user_id=${user.id}`, function(err, results) {

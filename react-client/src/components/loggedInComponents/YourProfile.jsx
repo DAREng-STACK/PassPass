@@ -15,7 +15,8 @@ class YourProfile extends React.Component {
       haveCurrentlyAvailablePasses: false,
       currentlyAvailablePasses: [],
       haveExpiredPasses: false,
-      expiredPasses: []
+      expiredPasses: [],
+      restrictedStudios: []
     };
   }
 
@@ -23,20 +24,6 @@ class YourProfile extends React.Component {
     this.getAllPasses();
   }
 
-  deletePendingPass(pass) {
-    $.ajax({
-      method: 'POST',
-      url: '/passes/delete',
-      contentType: 'application/json',
-      data: JSON.stringify({id: pass.id}),
-      success: function(results) {
-				console.log(results, 'SUCCESS');
-      },
-      error: function(xhr, error) {
-        console.log('error:', error);
-      }
-    });
-  }
 
   updateMessageState(event) {
   	var newState = this.state;
@@ -52,8 +39,21 @@ class YourProfile extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({userId: this.state.userId}),
       success: function(allPasses) {
-        // console.log(allPasses, "PENDINGDPASS")
         this.setState({allPasses: allPasses})
+      }.bind(this),
+      error: function(error) {
+        console.log('error:', error);
+      }
+    });
+    $.ajax({
+      method: 'POST',
+      url: '/passes/restricted',
+      contentType: 'application/json',
+      data: JSON.stringify({userId: this.state.userId}),
+      success: function(restrictedStudios) {
+        this.setState({
+          restrictedStudios: restrictedStudios
+        })
       }.bind(this),
       error: function(error) {
         console.log('error:', error);
@@ -69,36 +69,54 @@ class YourProfile extends React.Component {
           pendingSellerData.map((seller) => {
             this.state.allPasses[i].first_name = seller.first_name;
             this.state.allPasses[i].email = seller.email;
+            this.state.allPasses[i].restrictedStudios = [];
             i++;
           })
           this.setState({
             allPasses: this.state.allPasses
           })
-          console.log(this.state.allPasses)
+          var passes = this.state.allPasses;
+          for (var t = 0; t < passes.length; t++) {
+            for (var e = 0; e < this.state.restrictedStudios.length; e++) {
+              if (passes[t].id === this.state.restrictedStudios[e].for_sale_block_id) {
+                passes[t].restrictedStudios.push(this.state.restrictedStudios[e].studio);
+              }
+            }
+          }
+          this.setState({
+            allPasses: passes
+          })
+          var tempPending = [];
+          var tempCurrAvail = [];
+          var tempExp = [];
           for (var j = 0; j < this.state.allPasses.length; j++) {
             var pass = this.state.allPasses[j];
             if (pass.purchased === 'false') {
-              this.state.pendingPasses.push(pass);
+              tempPending.push(pass);
               this.setState({
                 havePendingPasses: true
               })
             } else {
               var currentDate = new Date();
               var expirationDate = new Date(pass.period_end);
-              console.log(currentDate, "current", expirationDate, "expirationDate")
               if (expirationDate > currentDate) {
-                this.state.currentlyAvailablePasses.push(pass);
+                tempCurrAvail.push(pass);
                 this.setState({
                   haveCurrentlyAvailablePasses: true
                 })
               } else {
-                this.state.expiredPasses.push(pass);
+                tempExp.push(pass);
                 this.setState({
                   haveExpiredPasses: true
                 })
               }
             }
           }
+          this.setState({
+            pendingPasses: tempPending,
+            currentlyAvailablePasses: tempCurrAvail,
+            expiredPasses: tempExp
+          })
         }.bind(this),
           error: function(error) {
           console.log('error:', error);
@@ -106,6 +124,29 @@ class YourProfile extends React.Component {
     });
   }
 
+  deletePendingPass(pass) {
+    let context = this;
+    $.ajax({
+      method: 'POST',
+      url: '/passes/delete',
+      contentType: 'application/json',
+      data: JSON.stringify({id: pass.id, userId: this.state.userId}),
+      success: function(results) {
+        var newPending = context.state.pendingPasses.filter(function(pass1){
+          return pass1.id !== pass.id
+        });
+        context.setState({pendingPasses: newPending})
+        if (context.state.pendingPasses.length === 0) {
+          context.setState({
+            havePendingPasses: false
+          })
+        }
+      },
+      error: function(error) {
+        throw error;
+      }
+    });
+  }
 
 
 
@@ -136,13 +177,10 @@ class YourProfile extends React.Component {
   render() {
     return (
       <div className="about" >
-
-        <div>
-          {/* <div className="profilePicture">PROFILE PICTURE MAYBE</div> */}
-          <h2 className="profileHeader">
-            Welcome to PassPass, {this.props.profileData.first_name}!
-          </h2>
-        </div>
+        <br></br>
+        <h2 className="profileHeader">
+          Welcome to PassPass, {this.props.profileData.first_name}!
+        </h2>
         <div className="container-fluid" >
           <div className="col-sm-4">
             <div className='pendingcont'>

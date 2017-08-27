@@ -232,7 +232,6 @@ input[type=number] {
 	padding-bottom: 10px;*/
 	/*background: rgb(64,224,208);*/
 	border-radius: 10px;
-	width: 450px;
 	box-shadow: 1px 3px 4px 0px #3A3738;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#40e0d0),to(#36BFB0));
 	background-image: -webkit-linear-gradient(top, #40e0d0 0%,#36BFB0 100%);
