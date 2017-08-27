@@ -1,6 +1,6 @@
 var db = require('../../database/index.js')
 var stripe = require('stripe')(
-  "sk_test_J9JR0cXKMJL61WGB8O0CWgfG"
+  process.env.STRIPE_AUTH
 );
 
 module.exports.createTransferToPassPass = (data, callback) => {
