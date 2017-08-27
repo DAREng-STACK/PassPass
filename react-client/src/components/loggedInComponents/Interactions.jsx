@@ -14,13 +14,8 @@ class Interactions extends React.Component {
             <small>Welcome To PassPass!</small>
           </div>
           <br></br>
-          <div>
-            <smallest>Are you looking to</smallest>
-          </div>
           <button className="searchButton btn btn-md btn-primary btn-block" onClick={() => {this.props.pageChange('buy')}} >BUY PASSES</button>
-          <div>
-            <smallest>OR</smallest>
-          </div>
+          <br></br>
           <button className="searchButton btn btn-md btn-primary btn-block" onClick={() => {this.props.pageChange('sell')}} >SELL PASSES</button>
         </div>
       </div>

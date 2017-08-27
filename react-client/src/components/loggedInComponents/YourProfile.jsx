@@ -182,7 +182,7 @@ class YourProfile extends React.Component {
           Welcome to PassPass, {this.props.profileData.first_name}!
         </h2>
         <div className="container-fluid" >
-          <div className="col-sm-4">
+          <div className="col-sm-6">
             <div className='pendingcont'>
               <div className='conttitle'>
                 <strong>Pending Passes</strong>
@@ -213,10 +213,12 @@ class YourProfile extends React.Component {
           </div>
 
 
-          <div className="col-sm-4">
+          <div className="col-sm-3">
             <div className="pendingcont">
+              <div className="conttitle">
+                <strong>Currently Available Passes</strong>
+              </div>
               <ul className="profileList">
-              <strong>Currently Available Passes</strong>
               {
                 !this.state.haveCurrentlyAvailablePasses &&
                   <li>
@@ -239,27 +241,31 @@ class YourProfile extends React.Component {
             </div>
           </div>
 
-          <div className="col-sm-4">
-            <ul className="profileList">
-              <strong>Expired Passes</strong>
-              {
-                !this.state.haveExpiredPasses &&
-                  <li>
-                    You don't have any expired passes!
-                  </li>
-              }
-              {
-                this.state.haveExpiredPasses &&
-                <ul>
-                  {this.state.expiredPasses.map((pass, index) =>
-                    <ExpiredPasses
-                      pass={pass}
-                      key={index}
-                    />
-                  )}
-                </ul>
-              }
-            </ul>
+          <div className="col-sm-3">
+            <div className="pendingcont">
+              <div className="conttitle">
+                <strong>Expired Passes</strong>
+              </div>
+              <ul className="profileList">
+                {
+                  !this.state.haveExpiredPasses &&
+                    <li>
+                      You don't have any expired passes!
+                    </li>
+                }
+                {
+                  this.state.haveExpiredPasses &&
+                  <ul>
+                    {this.state.expiredPasses.map((pass, index) =>
+                      <ExpiredPasses
+                        pass={pass}
+                        key={index}
+                      />
+                    )}
+                  </ul>
+                }
+              </ul>
+            </div>
           </div>
         </div>
 

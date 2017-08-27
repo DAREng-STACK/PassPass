@@ -33,8 +33,15 @@ smallest {
 }
 
 .navbar {
-	background-color: #40e0d0;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#40e0d0),to(#36BFB0));
+  background-image: -webkit-linear-gradient(top, #40e0d0 0%,#36BFB0 100%);
+  background-image: -o-linear-gradient(top, #40e0d0 0%,#36BFB0 100%);
+  background-image: linear-gradient(to bottom, #40E0CF 0%,#36BFB0 100%);
+  /*border: 1px solid #e5e5e5;
+	background-color: #40e0d0; */
 	padding: .5em 13vw .5em 13vw;
+	box-shadow: 1px 4px 5px 0px #3A3738;
+	position: sticky;
 }
 
 .navbar-toggler {
@@ -42,7 +49,7 @@ smallest {
 }
 
 .navbar-brand {
-	font-weight: bold;
+	/*font-weight: bold; */
 	font-size: 100%;
 	color: #FFFFFF;
 	margin: 0 1em 0 0;
@@ -50,6 +57,7 @@ smallest {
 
 .nav-item {
 	font-size: 110%;
+	font-weight: 500;
 }
 
 .nav-right {
@@ -64,11 +72,11 @@ smallest {
 }
 
 .buyPasses {
-	padding-top: 76px;
+	padding-top: 10px;
 }
 @media (max-width: 991px) {
 	.buyPasses {
-		padding-top: 98px;
+		padding-top: 15px;
 	}
 }
 
@@ -85,8 +93,11 @@ smallest {
 .searchButton, .addSaleButton, .editSaleButton {
 	height: 3em;
 	background-color: #40e0d0;
-	border-color: #D3D3D3;
+	border-color: #4D4D4D;
+	border: 2px;
 	margin-top: 1em;
+	box-shadow: 1px 3px 4px 0px #3A3738;
+	color: #1C1A1B;
 }
 
 .fbButton {
@@ -117,6 +128,9 @@ input[type=number] {
 	border-bottom: thin solid #40e0d0;
 	padding: 1em 0 1em 0;
 }
+.buyPassesListItem:hover {
+	background: #defff7;
+}
 
 .buyPassesListItemInfo {
 	display: flex;
@@ -135,25 +149,28 @@ input[type=number] {
 }
 
 .sellPasses {
-	padding-top: 76px;
+	padding-top: 10px;
 }
 @media (max-width: 991px) {
 	.sellPasses {
-		padding-top: 98px;
+		padding-top: 15px;
 	}
 }
 
 .interactionsRow {
-	padding-top: 76px;
+	padding-top: 10px;
 }
 @media (max-width: 991px) {
 	.interactionsRow {
-		padding-top: 98px;
+		padding-top: 15px;
 	}
 }
 .sellPassesPassBlock {
 	border-bottom: thin solid #40e0d0;
 	padding: 1em 0 1em 0;
+}
+.sellPassesPassBlock:hover {
+	background: #defff7;
 }
 
 .sellPassesPassBlockInfo {
@@ -174,12 +191,12 @@ input[type=number] {
 
 .interactionsContainer {
 	width: 17em;
-  padding-top: 86px;
+  padding-top: 50px;
   text-align: center;
 }
 
 .sellPassesList {
-	padding-top: 80px;
+	padding-top: 10px;
 }
 
 .editbutton {
@@ -187,12 +204,14 @@ input[type=number] {
 	padding: 10px, 30px;
 }
 .about {
-	padding-top: 76px;
+	padding-top: 10px;
+	text-align: center;
+	justify-content: center;
 }
 
 .profileHeader {
 	float: top;
-	margin: 50px;
+	margin: 25px;
 }
 
 .profilePicture {
@@ -239,6 +258,22 @@ input[type=number] {
 	background-image: linear-gradient(to bottom, #40E0CF 0%,#36BFB0 100%);
 }
 
+.profileexpired {
+	float: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin: 20px;
+	/*padding-top: 10px;
+	padding-bottom: 10px;*/
+	/*background: rgb(64,224,208);*/
+	border-radius: 10px;
+	box-shadow: 1px 3px 4px 0px #3A3738;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#40e0d0),to(#36BFB0));
+	background-image: -webkit-linear-gradient(top, #40e0d0 0%,#36BFB0 100%);
+	background-image: -o-linear-gradient(top, #40e0d0 0%,#36BFB0 100%);
+	background-image: linear-gradient(to bottom, #40E0CF 0%,#36BFB0 100%);
+}
+
 .pendingcont{
 	/*border: 2px solid	 black;*/
 	/*background: #FFF7E3;*/
@@ -251,9 +286,8 @@ input[type=number] {
 	padding-left: 10px;
 
 }
-.checkout {
-}
 
 ul{
 	list-style-type: none;
 }
+

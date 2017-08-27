@@ -88,7 +88,7 @@ class SignInBox extends React.Component {
       <Router>
         <div className="signInContainerRow">
           <div className="signInContainer">
-            <small>The Marketplace for Classpass Classes</small>
+            <small>The Marketplace for ClassPass Classes</small>
             <br></br>
             <form className="form-signin" onSubmit={this.handleSignIn.bind(this)}>
               <br></br>

@@ -63,17 +63,6 @@ CREATE TABLE messages (
     FOREIGN KEY (reciever_id) REFERENCES users(id)
   );
 
-CREATE TABLE sold_passes (
-    id int PRIMARY KEY AUTO_INCREMENT,
-    seller_id int,
-    buyer_id int,
-    notes VARCHAR(255),
-    sell_date DATE,
-    expiration_date DATE,
-    FOREIGN KEY (seller_id) REFERENCES users(id),
-    FOREIGN KEY (buyer_id) REFERENCES users(id)
-  );
-
 CREATE TABLE for_sale_block (
   id int PRIMARY KEY AUTO_INCREMENT,
   pass_volume int,

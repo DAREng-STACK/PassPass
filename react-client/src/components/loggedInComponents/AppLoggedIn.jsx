@@ -63,8 +63,8 @@ class AppLoggedIn extends React.Component {
                 <li className="nav-item">
                   <Link to="/yourprofile" className="nav-link">Your Profile</Link>
                 </li>
-                <li className="nav-item nav-link" onClick={this.props.logout}>
-                  Log Out
+                <li className="nav-item" onClick={this.props.logout}>
+                  <Link to="/" className="nav-link" >Log Out</Link>
                 </li>
               </ul>
             </div>

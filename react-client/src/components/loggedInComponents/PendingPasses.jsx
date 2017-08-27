@@ -22,11 +22,11 @@ var PendingPasses = (props) => (
        }
        {props.pass.restrictedStudios.length === 0 &&
         <li>
-          <strong>Restricted Gyms:</strong>
+          <strong>Restricted Gyms:</strong> no restricted gyms
         </li>
       }
         <li>
-          Price: ${props.pass.current_price.toFixed(2)}
+          <strong>Price:</strong> ${props.pass.current_price.toFixed(2)}
         </li>
         <li>
           <strong>Passes Available:</strong> {props.pass.pass_volume - props.pass.passes_sold}
@@ -55,8 +55,11 @@ var PendingPasses = (props) => (
             <button className="btn btn-md btn-primary btn-block" type="submit">Send Message</button>
           </form>
         </li>
+        <br></br>
         <li className="checkout">
-          <Checkout stuff={props} />  <input type="submit" value="Delete" className="deleteFromPendingButton" onClick={props.deletePendingPass.bind(this, props.pass)}/>
+          <Checkout stuff={props} />
+          <br></br>
+          <input type="submit" value="Delete" className="deleteFromPendingButton btn btn-md btn-primary btn-blocks" onClick={props.deletePendingPass.bind(this, props.pass)}/>
         </li>
       </ul>
     </div>
